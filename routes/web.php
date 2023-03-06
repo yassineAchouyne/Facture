@@ -15,7 +15,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('index');
+    if(empty(Auth::user())) return view('index');
+    else return view('Admin.index');
+    
 });
 
 Auth::routes();
