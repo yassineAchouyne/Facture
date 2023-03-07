@@ -1,11 +1,15 @@
 @extends('layouts.app')
 
+@section('button')
+<a class="btn btn-primary " href="/login">Connexion</a>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-5">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+                <div class="card-header bg-primary text-white">{{ __('S\'inscrire') }}</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -78,9 +82,28 @@
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
+                                    {{ __('Enregistrer') }}
                                 </button>
                             </div>
+                        </div>
+                        <div class="txt1 text-center p-t-54 p-b-20">
+                            <span>
+                                Ou inscrivez-vous en utilisant
+                            </span>
+                        </div>
+
+                        <div class="flex-c-m">
+                            <a href="#" class="login100-social-item bg1">
+                                <i class="bi bi-facebook"></i>
+                            </a>
+
+                            <a href="#" class="login100-social-item bg2">
+                                <i class="bi bi-linkedin"></i>
+                            </a>
+
+                            <a href="#" class="login100-social-item bg3">
+                                <i class="bi bi-google"></i>
+                            </a>
                         </div>
                     </form>
                 </div>

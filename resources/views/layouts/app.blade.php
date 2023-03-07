@@ -13,6 +13,9 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -36,7 +39,7 @@
                     <li class="nav-item"><a class="my-2 nav-link" href="/#about">À propos</a></li>
                     <li class="nav-item"><a class="my-2 nav-link" href="/#services">Services</a></li>
                     <li class="nav-item"><a class="my-2  nav-link" href="/#contact">Contact</a></li>
-                    <li class="nav-item"><a class="btn btn-primary " href="/register">S'inscrire</a></li>
+                    <li class="nav-item">@yield('button')</li>
                 </ul>
             </div>
         </div>

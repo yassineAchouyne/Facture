@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('button')
+<a class="btn btn-primary " href="/register">S'inscrire</a>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -18,9 +22,9 @@
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                 @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
@@ -32,9 +36,9 @@
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
 
                                 @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
@@ -58,11 +62,30 @@
                                 </button>
 
                                 @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Mot de passe oublié?') }}
-                                    </a>
+                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                    {{ __('Mot de passe oublié?') }}
+                                </a>
                                 @endif
                             </div>
+                        </div>
+                        <div class="txt1 text-center p-t-54 p-b-20">
+                            <span>
+                                Ou inscrivez-vous en utilisant
+                            </span>
+                        </div>
+
+                        <div class="flex-c-m">
+                            <a href="{{ route('socialite.redirect', 'facebook') }}" class="login100-social-item bg1">
+                                <i class="bi bi-facebook"></i>
+                            </a>
+
+                            <a href="#" class="login100-social-item bg2">
+                                <i class="bi bi-linkedin"></i>
+                            </a>
+
+                            <a href="{{ route('socialite.redirect', 'google') }}" title="Connexion/Inscription avec Google"  class="login100-social-item bg3">
+                                <i class="bi bi-google"></i>
+                            </a>
                         </div>
                     </form>
                 </div>
