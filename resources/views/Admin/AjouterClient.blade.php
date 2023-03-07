@@ -1,25 +1,25 @@
 @extends("layouts.index")
 
 @section('content')
-<form id="contactForm" class="p-1 m-auto" action="/clients" method="post">
+<form id="contactForme" class="p-1 m-auto" action="/clients" method="post">
     @csrf
     <h4 class="text-center">Informations</h4>
     <!-- Email address input-->
     <div class="form-floating mb-3">
-        <input class="form-control" id="email" name="email" type="email" placeholder="name@example.com" data-sb-validations="required,email" />
+        <input class="form-control" id="email" name="email" required type="email" placeholder="name@example.com" data-sb-validations="required,email" />
         <label for="email">Adresse Email</label>
         <div class="invalid-feedback" data-sb-feedback="email:required">Un email est requis.</div>
         <div class="invalid-feedback" data-sb-feedback="email:email">Email n’est pas valide.</div>
     </div>
     <!-- Prénom input-->
     <div class="form-floating mb-3">
-        <input class="form-control" id="prenom" name="prenom" type="text" placeholder="Enter your prenom..." data-sb-validations="required" />
+        <input class="form-control" id="prenom" name="prenom" required type="text" placeholder="Enter your prenom..." data-sb-validations="required" />
         <label for="prenom">Prénom</label>
         <div class="invalid-feedback" data-sb-feedback="prenom:required">Un nom est requis.</div>
     </div>
     <!-- Name input-->
     <div class="form-floating mb-3">
-        <input class="form-control" id="nom" name="nom" type="text" placeholder="Enter your nom..." data-sb-validations="required" />
+        <input class="form-control" id="nom" name="nom" required type="text" placeholder="Enter your nom..." data-sb-validations="required" />
         <label for="nom">Nom</label>
         <div class="invalid-feedback" data-sb-feedback="nom:required">Un nom est requis.</div>
     </div>

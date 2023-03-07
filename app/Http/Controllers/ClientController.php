@@ -13,8 +13,8 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $client=Client::all() ;
-        return view('admin.clients',compact('client'));
+        $clients=Client::all() ;
+        return view('admin.clients',compact('clients'));
     }
 
     /**
@@ -45,6 +45,7 @@ class ClientController extends Controller
         $client->id_user=Auth::user()->id;
         
         $client->save();
+        return redirect('/clients');
     }
 
     /**
@@ -60,7 +61,7 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-        //
+        return view("admin.modifierClient",compact("client"));
     }
 
     /**
@@ -68,7 +69,20 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-        //
+        $clien= Client::find($client->id_client) ;
+        $clien->prenom=$request->prenom;
+        $clien->nom=$request->nom;
+        $clien->email=$request->email;
+
+        $clien->adresse=$request->adresse;
+        $clien->codePostal=$request->codePostal;
+        $clien->ville=$request->ville;
+        $clien->pays=$request->pays;
+        $clien->website=$request->website;
+        $clien->tel=$request->tel;
+        
+        $clien->save();
+        return redirect('/clients');
     }
 
     /**
@@ -76,6 +90,7 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        //
+        Client::destroy($client->id_client);
+        return redirect("/clients");
     }
 }
