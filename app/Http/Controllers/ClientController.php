@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ClientController extends Controller
 {
@@ -13,7 +14,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients=Client::all() ;
+        $clients=DB::table("clients")->where("id_user",Auth::user()->id)->get() ;
         return view('admin.clients',compact('clients'));
     }
 

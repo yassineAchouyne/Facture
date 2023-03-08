@@ -3,7 +3,7 @@
 @section('content')
 <form id="contactForme" class="p-1 m-auto" action="/clients" method="post">
     @csrf
-    <h4 class="text-center">Informations</h4>
+    
     <!-- Email address input-->
     <div class="form-floating mb-3">
         <input class="form-control" id="email" name="email" required type="email" placeholder="name@example.com" data-sb-validations="required,email" />
@@ -24,7 +24,6 @@
         <div class="invalid-feedback" data-sb-feedback="nom:required">Un nom est requis.</div>
     </div>
 
-    <h4 class="text-center mt-5">Coordonnées du client</h4>
     <!--Address input-->
     <div class="form-floating mb-3">
         <input class="form-control" id="adresse" name="adresse" type="text" placeholder="Adresse" data-sb-validations="required" />
@@ -43,7 +42,7 @@
     <!--Pays select-->
     <div class="mb-3">
     <label class="ml-3" for="pays">Pays</label>
-    <select class="form-control selectpicker countrypicker" value="MA" name="pays"  data-flag="true"></select>
+    <select style="height: 55px;" class="form-control selectpicker countrypicker" value="MA" name="pays"  data-flag="true"></select>
     </div>
      <!--Site Internit input-->
      <div class="form-floating mb-3">

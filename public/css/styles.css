@@ -11466,7 +11466,7 @@ header.masthead h1, header.masthead .h1 {
 #contactForme{
   width: 50%;
 }
-@media (max-width: 600px) {
+@media (max-width:746px) {
   #contactForme{
     width: 100%;
   }

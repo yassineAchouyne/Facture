@@ -44,7 +44,7 @@
     <!--Pays select-->
     <div class="mb-3">
     <label class="ml-3" for="pays">Pays</label>
-    <select class="form-control selectpicker countrypicker"  value="{{$client->pays}}"  name="pays"  data-flag="true"></select>
+    <select class="form-control selectpicker countrypicker" data-default="{{$client->pays}}" name="pays"  data-flag="true"></select>
     </div>
      <!--Site Internit input-->
      <div class="form-floating mb-3">
