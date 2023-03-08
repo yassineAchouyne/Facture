@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\Facture;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+
 
 class FactureController extends Controller
 {
@@ -44,7 +46,7 @@ class FactureController extends Controller
         $facture->id_user = Auth::user()->id ;
 
         $facture->save();
-        return view("admin.facture") ;
+        return redirect("/factures") ;
     }
 
     /**
@@ -52,7 +54,8 @@ class FactureController extends Controller
      */
     public function show(Facture $facture)
     {
-        //
+        $client= Client::find($facture->id_client) ;
+        return view("admin.showFacture",compact("facture","client"));
     }
 
     /**
@@ -60,7 +63,8 @@ class FactureController extends Controller
      */
     public function edit(Facture $facture)
     {
-        //
+        $clients = DB::table("clients")->where("id_user", Auth::user()->id)->get();
+        return view("admin.modifierFacture",compact("facture","clients"));
     }
 
     /**
@@ -68,7 +72,18 @@ class FactureController extends Controller
      */
     public function update(Request $request, Facture $facture)
     {
-        //
+        $factur=Facture::find($facture->id_facture);
+        $factur->id_client = $request->client;
+        $factur->dateEmission = $request->dateEmission;
+        $factur->dateFin = $request->dateFin;
+        $factur->quantite = $request->quantite;
+        $factur->prixHT = $request->prixHT;
+        $factur->tva = $request->tva;
+        $factur->Description = $request->description;
+        $factur->modePayment = $request->modePayment;
+
+        $factur->save();
+        return redirect("/factures") ;
     }
 
     /**
@@ -76,6 +91,7 @@ class FactureController extends Controller
      */
     public function destroy(Facture $facture)
     {
-        //
+        Facture::destroy($facture->id_facture);
+        return redirect("/factures");
     }
 }

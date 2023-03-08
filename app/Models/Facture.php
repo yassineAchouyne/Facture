@@ -12,10 +12,10 @@ class Facture extends Model
     protected $fillable = ['dateEmission','dateFin','quantite','prixHT','modePayment','tva'];
 
     public function client(){
-        return $this->belongsTo(Client::class,'id_client');
+        return $this->hasMany(Client::class,'id_client');
     }
     public function user(){
-        return $this->belongsTo(User::class,'id_client');
+        return $this->belongsToMany(User::class,'id_user');
     }
 
 }

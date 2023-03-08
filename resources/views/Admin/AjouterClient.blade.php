@@ -1,5 +1,9 @@
 @extends("layouts.index")
 
+@section('haider')
+<h2 class="text-primary">Nouvelle client</h2>
+@endsection
+
 @section('content')
 <form id="contactForme" class="p-1 m-auto" action="/clients" method="post">
     @csrf
@@ -42,7 +46,7 @@
     <!--Pays select-->
     <div class="mb-3">
     <label class="ml-3" for="pays">Pays</label>
-    <select style="height: 55px;" class="form-control selectpicker countrypicker" value="MA" name="pays"  data-flag="true"></select>
+    <select style="height: 55px;" class="form-control selectpicker countrypicker" data-live-search="true" data-default="MA" name="pays"  data-flag="true"></select>
     </div>
      <!--Site Internit input-->
      <div class="form-floating mb-3">

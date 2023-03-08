@@ -1,16 +1,51 @@
 @extends("layouts.index")
 
+@section('haider')
+<form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+    <div class="input-group">
+        <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="button">
+                <i class="fas fa-search fa-sm"></i>
+            </button>
+        </div>
+    </div>
+</form>
+@endsection
+
+@section('search')
+<li class="nav-item dropdown no-arrow d-sm-none">
+    <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-search fa-fw"></i>
+    </a>
+    <!-- Dropdown - Messages -->
+    <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
+        <form class="form-inline mr-auto w-100 navbar-search">
+            <div class="input-group">
+                <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="button">
+                        <i class="fas fa-search fa-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</li>
+@endsection
+
 @section('style')
 <style>
-    .email_link {
+    .link {
         text-decoration: none;
     }
 
-    .email_link:hover {
+    .link:hover {
         color: #6c757d;
     }
 </style>
 @endsection
+
 @section('content')
 <section class="row p-1">
     @foreach($factures as $facture)
@@ -19,28 +54,26 @@
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                 <div>
-                    <h6 class="m-0 font-weight-bold text-primary">
-                    @if($facture->statut=="nonpayer")
+                    <a href="/factures/{{$facture->id_facture}}" class="link h6 m-0 font-weight-bold text-primary">
+                        @if($facture->statut=="nonpayer")
                         Provisoire
-                    @else 
+                        @else
                         <a class="fs-5 email_link">F{{ $facture->id_facture }}</a> <span class="ml-3 text-success fs-6">Finalisée</span>
-                    @endif
-                </h6>
-                <h6 class="mt-1 text-primary">
-                    <!-- {{}} -->
-                </h6>
+                        @endif
+                    </a><br>
+                    @php($client = DB::table('clients')->where('id_client',$facture->id_client)->get())
+                    <a href="/clients/{{$client[0]->id_client}}" class="link h6 mt-1 text-primary">
+                        {{ $client[0]->prenom }} {{ $client[0]->nom }}
+                    </a>
                 </div>
-                
+
                 <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="/clients//edit">Modifier</a>
+                        <a class="dropdown-item" href="/factures/{{ $facture->id_facture}}/edit">Modifier</a>
                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#popupdel">Supprimer</a>
-
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Créer une facture</a>
                     </div>
                 </div>
             </div>
@@ -63,12 +96,12 @@
             <div class="modal-content">
 
                 <div class="modal-body">
-                    Voulez-vous vraiment supprimer ce client ?
+                    Voulez-vous vraiment supprimer ce Fcture ?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
                     <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-                    <form action="/clients" method="post">
+                    <form action="/factures/{{$facture->id_facture}}" method="post">
                         @csrf
                         @method("DELETE")
                         <input class="btn btn-success" type="submit" value="Supprimer" />

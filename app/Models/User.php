@@ -44,7 +44,7 @@ class User extends Authenticatable
     ];
 
     public function client(){
-        return $this->belongsToMany(Client::class,'id_client');
+        return $this->belongsTo(Client::class,'id_client');
     }
 
     public function factur(){
