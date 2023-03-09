@@ -88,8 +88,7 @@
                     Voulez-vous vraiment supprimer ce client ?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
                     <form action="/clients/{{$client->id_client}}" method="post">
                         @csrf
                         @method("DELETE")

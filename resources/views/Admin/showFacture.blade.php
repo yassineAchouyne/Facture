@@ -28,7 +28,7 @@
                     Voulez-vous vraiment supprimer ce Fcture ?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
                     <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
                     <form action="/factures/{{$facture->id_facture}}" method="post">
                         @csrf

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\FactureController;
+use App\Http\Controllers\PdfController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -38,3 +40,7 @@ Route::get("callback/{provider}", "App\Http\Controllers\SocialiteController@call
 Route::resource("clients",ClientController::class);
 
 Route::resource("factures",FactureController::class);
+
+Route::resource('/profile',ProfileController::class);
+
+Route::get('/pdf',[PdfController::class,"generatePDF"]);
