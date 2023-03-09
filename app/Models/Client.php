@@ -15,6 +15,6 @@ class Client extends Model
         return $this->hasMany(User::class,'id');
     }
     public function facture(){
-        return $this->belongsTo(Facture::class,'id_client');
+        return $this->hasMany(Facture::class,'id_client');
     }
 }

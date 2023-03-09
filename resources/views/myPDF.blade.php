@@ -3,128 +3,88 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <!-- <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">  -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <style>
-      body{margin-top:20px;
-background:#eee;
-}
+        .invoice .top-right {
+            text-align: right;
+            padding-right: 20px;
+        }
 
-/*Invoice*/
-.invoice .top-left {
-    font-size:65px;
-	color:#3ba0ff;
-}
+        .invoice .table-row {
+            margin-left: -15px;
+            margin-right: -15px;
+            margin-top: 25px;
+        }
 
-.invoice .top-right {
-	text-align:right;
-	padding-right:20px;
-}
+        .invoice .table-row .table>thead {
+            border-top: 1px solid #ddd;
+        }
 
-.invoice .table-row {
-	margin-left:-15px;
-	margin-right:-15px;
-	margin-top:25px;
-}
+        .invoice .table-row .table>thead>tr>th {
+            border-bottom: none;
+        }
 
-.invoice .payment-info {
-	font-weight:500;
-}
+        .invoice .table>tbody>tr>td {
+            padding: 8px 20px;
+        }
 
-.invoice .table-row .table>thead {
-	border-top:1px solid #ddd;
-}
+        
 
-.invoice .table-row .table>thead>tr>th {
-	border-bottom:none;
-}
+        .invoice-ribbon {
+            width: 85px;
+            height: 88px;
+            overflow: hidden;
+            position: absolute;
+            top: -1px;
+            right: 14px;
+        }
 
-.invoice .table>tbody>tr>td {
-	padding:8px 20px;
-}
+        .ribbon-inner {
+            text-align: center;
+            -webkit-transform: rotate(45deg);
+            -moz-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            -o-transform: rotate(45deg);
+            position: relative;
+            padding: 7px 0;
+            left: -5px;
+            top: 11px;
+            width: 120px;
+            background-color: #66c591;
+            font-size: 15px;
+            color: #fff;
+        }
 
-.invoice .invoice-total {
-	margin-right:-10px;
-	font-size:16px;
-}
+        .ribbon-inner:before,
+        .ribbon-inner:after {
+            content: "";
+            position: absolute;
+        }
 
-.invoice .last-row {
-	border-bottom:1px solid #ddd;
-}
+        .ribbon-inner:before {
+            left: 0;
+        }
 
-.invoice-ribbon {
-	width:85px;
-	height:88px;
-	overflow:hidden;
-	position:absolute;
-	top:-1px;
-	right:14px;
-}
+        .ribbon-inner:after {
+            right: 0;
+        }
+        .img{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
 
-.ribbon-inner {
-	text-align:center;
-	-webkit-transform:rotate(45deg);
-	-moz-transform:rotate(45deg);
-	-ms-transform:rotate(45deg);
-	-o-transform:rotate(45deg);
-	position:relative;
-	padding:7px 0;
-	left:-5px;
-	top:11px;
-	width:120px;
-	background-color:#66c591;
-	font-size:15px;
-	color:#fff;
-}
-
-.ribbon-inner:before,.ribbon-inner:after {
-	content:"";
-	position:absolute;
-}
-
-.ribbon-inner:before {
-	left:0;
-}
-
-.ribbon-inner:after {
-	right:0;
-}
-
-@media(max-width:575px) {
-	.invoice .top-left,.invoice .top-right,.invoice .payment-details {
-		text-align:center;
-	}
-
-	.invoice .from,.invoice .to,.invoice .payment-details {
-		float:none;
-		width:100%;
-		text-align:center;
-		margin-bottom:25px;
-	}
-
-	.invoice p.lead,.invoice .from p.lead,.invoice .to p.lead,.invoice .payment-details p.lead {
-		font-size:22px;
-	}
-
-	.invoice .btn {
-		margin-top:10px;
-	}
-}
-
-@media print {
-	.invoice {
-		width:900px;
-		height:800px;
-	}
-}
+    
     </style>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
 </head>
 
 <body>
-
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <div class="container bootstrap snippets bootdeys">
         <div class="row">
             <div class="col-sm-12">
@@ -133,89 +93,43 @@ background:#eee;
                         <div class="invoice-ribbon">
                             <div class="ribbon-inner">PAID</div>
                         </div>
-                        <div class="row">
 
-                            <div class="col-sm-6 top-left">
-                                <i class="fa fa-rocket"></i>
-                            </div>
-
-                            <div class="col-sm-6 top-right">
-                                <h3 class="marginright">INVOICE-1234578</h3>
-                                <span class="marginright">14 April 2014</span>
-                            </div>
-
+                        <div class="img">
+                            <img class=" rounded-circle " src="{{ public_path('storage/logo/'.$client->logo) }}" width="150" height="150" />
                         </div>
-                        <hr>
-                        <div class="row">
 
-                            <div class="col-xl-4 from">
-                                <p class="lead marginbottom">DE : Dynofy</p>
-                                <p>350 Rhode Island Street</p>
-                                <p>Suite 240, San Francisco</p>
-                                <p>California, 94103</p>
-                                <p>Téléphone: 415-767-3600</p>
-                                <p>Email: contact@dynofy.com</p>
-                            </div>
 
-                            <div class="col-xl-4 to">
-                                <p class="lead marginbottom">À : John Doe</p>
-                                <p>425 Market Street</p>
-                                <p>Suite 2200, San Francisco</p>
-                                <p>California, 94105</p>
-                                <p>Téléphone: 415-676-3600</p>
-                                <p>Email: john@doe.com</p>
+                        <div class="mt-5 top-right">
+                            <p> <b>Date :</b> {{$facture->dateEmission}} </p>
+                        </div>
+                        <div class="mt-1 d-flex justify-content-center">
+                            <p class=" border-1 border-red-500 text-white bg-secondary px-5 py-2"> <b>Facture numéro </b> {{$facture->id_facture}} </p>
+                        </div>
 
-                            </div>
+                        <div class="mt-1">
+                            <p> <b>Client : </b> {{$client->prenom." ".$client->nom}} </p>
+                        </div>
 
-                            <div class="col-xl-4 text-right payment-details">
-                                <p class="lead marginbottom payment-info">Détails de Paiement</p>
-                                <p>Date: 14 April 2014</p>
-                                <p>VAT: DK888-777 </p>
-                                <p>Total Amount: $1019</p>
-                                <p>Account Name: Flatter</p>
-                            </div>
-
+                        <div class="mt-1">
+                            <p><b>Adresse : </b> {{$client->adresse . ' ' . $client->codePostal. ' ' . $client->ville}} </p>
                         </div>
 
                         <div class="row table-row">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th class="text-center" style="width:5%">#</th>
-                                        <th style="width:50%">Item</th>
-                                        <th class="text-right" style="width:15%">Quantity</th>
-                                        <th class="text-right" style="width:15%">Unit Price</th>
-                                        <th class="text-right" style="width:15%">Total Price</th>
+                                        <th style="width:50%">Description</th>
+                                        <th class="text-right" style="width:15%">Quantité</th>
+                                        <th class="text-right" style="width:15%">Prix Unitaire</th>
+                                        <th class="text-right" style="width:15%">Total prix</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td class="text-center">1</td>
-                                        <td>Flatter Theme</td>
-                                        <td class="text-right">10</td>
-                                        <td class="text-right">$18</td>
-                                        <td class="text-right">$180</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">2</td>
-                                        <td>Flat Icons</td>
-                                        <td class="text-right">6</td>
-                                        <td class="text-right">$59</td>
-                                        <td class="text-right">$254</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">3</td>
-                                        <td>Wordpress version</td>
-                                        <td class="text-right">4</td>
-                                        <td class="text-right">$95</td>
-                                        <td class="text-right">$285</td>
-                                    </tr>
-                                    <tr class="last-row">
-                                        <td class="text-center">4</td>
-                                        <td>Server Deployment</td>
-                                        <td class="text-right">1</td>
-                                        <td class="text-right">$300</td>
-                                        <td class="text-right">$300</td>
+                                        <td>{{$facture->Description}}</td>
+                                        <td class="text-right">{{ $facture->quantite }}</td>
+                                        <td class="text-right">{{ $facture->prixHT }} DH</td>
+                                        <td class="text-right">{{ $facture->prixHT * $facture->quantite}} DH</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -223,18 +137,30 @@ background:#eee;
                         </div>
 
                         <div class="row">
-                            <div class="col-xl-6 margintop">
-                                <p class="lead marginbottom">THANK YOU!</p>
-                                
-                            </div>
-                            <div class="col-xl-6 text-right pull-right invoice-total">
-                                <p>Subtotal : $1019</p>
-                                <p>Discount (10%) : $101 </p>
-                                <p>VAT (8%) : $73 </p>
-                                <p>Total : $991 </p>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <td class="w-50"></td>
+                                        <th class="top-right">Montant en DH :</th>
+                                        <td class="top-left">{{ $facture->tva }} %</td>
+                                        <th class="top-right">Total Net à payer :</th>
+                                        <td class="top-left">{{ $facture->quantite * $facture->prixHT *(1+$facture->tva/100) }} DH</td>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <div class="my-5 top-right">
+                                <p> <b>Signature :</b></p>
                             </div>
                         </div>
 
+                        <div class=" text-muted row">
+                            <p class="col-5 row"> <b class="col-6"> Auto Entrepreneur : </b><span class="col">{{$user->name}}</span> </p>
+                            <p class="col-4 row"> <b class="col-6"> Adresse : </b><span class="col">{{$user->adresse}}</span> </p>
+                        </div>
+                        <div class=" text-muted row">
+                            <p class="col-5 row"> <b class="col-6"> Numéro de Téléphone : </b><span class="col">{{$user->tel}}</span> </p>
+                            <p class="col-4 row"> <b class="col-6"> Email : </b><span class="col">{{$user->email}}</span> </p>
+                        </div> 
                     </div>
                 </div>
             </div>

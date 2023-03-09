@@ -7,7 +7,7 @@
 @section('action')
 
 <li class="dropdown no-arrow mt-4 mr-3 ml-3">
-    <a class="dropdown-toggle" href="#" role="button">
+    <a class="dropdown-toggle" href="/pdf" role="button">
         <i class="bi bi-file-earmark-arrow-down-fill fa-md fa-fw text-gray-400"></i>
     </a>
 </li>

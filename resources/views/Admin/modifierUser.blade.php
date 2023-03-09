@@ -51,11 +51,6 @@
 
 @section('content')
 <section>
-    @if(Session::has('erour') )
-    <div class="alert alert-danger text-center" role="alert">
-        Veuillez changer le nom de la photo
-    </div>
-    @endif
     <form action="/profile/{{$user->id}}" method="post" class="container py-5" enctype="multipart/form-data">
         @csrf
         @method('put')

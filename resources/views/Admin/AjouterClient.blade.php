@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<form id="contactForme" class="p-1 m-auto" action="/clients" method="post">
+<form id="contactForme" class="p-1 m-auto" action="/clients" method="post" enctype="multipart/form-data">
     @csrf
     
     <!-- Email address input-->
@@ -59,6 +59,12 @@
         <input class="form-control" id="phone" type="numbre" name="tel" placeholder="(123) 456-7890" data-sb-validations="required" />
         <label for="phone">Numéro de Téléphone</label>
         <div class="invalid-feedback" data-sb-feedback="phone:required">Un numéro de téléphone est requis.</div>
+    </div>
+    <!-- avatar input -->
+    <div class="mb-3">
+        <label for="logo" class="ml-3">Numéro de Téléphone</label>
+        <input class="form-control" id="logo" type="file" name="logo" data-sb-validations="required" />
+        <div class="invalid-feedback" data-sb-feedback="logo:required">Un numéro de téléphone est requis.</div>
     </div>
     <!-- Submit Button-->
     <div class="d-grid"><button class="btn btn-primary btn-xl" id="submitButton" type="submit">Créer le client</button></div>

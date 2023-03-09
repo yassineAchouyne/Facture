@@ -6,6 +6,7 @@ use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class ClientController extends Controller
 {
@@ -42,6 +43,15 @@ class ClientController extends Controller
         $client->pays=$request->pays;
         $client->website=$request->website;
         $client->tel=$request->tel;
+
+        if ($request->hasFile("logo")) {
+            $img = $request->logo;
+            $extention=$img->getClientOriginalExtension();
+
+            $name = Str::slug("Logo-". date("Y-m-d h:i:sa"), '-').'.'.$extention;
+            $img->storeAs('logo', $name, 'public');
+            $client->logo = $name;
+        }
 
         $client->id_user=Auth::user()->id;
         
