@@ -34,6 +34,15 @@ class FactureController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'client'=>'required',
+            'dateEmission'=>'required',
+            'dateFin'=>'required',
+            'quantite'=>'required',
+            'prixHT'=>'required',
+            'tva'=>'required',
+        ]);
+
         $facture=new Facture();
         $facture->id_client = $request->client;
         $facture->dateEmission = $request->dateEmission;

@@ -12,7 +12,7 @@ class Client extends Model
     protected $fillable = ['prenom','nom','email','adresse','codePostal','ville','pays','website','tel',];
 
     public function user(){
-        return $this->hasMany(User::class,'id');
+        return $this->belongsTo(User::class,'id');
     }
     public function facture(){
         return $this->hasMany(Facture::class,'id_client');

@@ -32,6 +32,18 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'email' => 'required',
+            'nom' => 'required',
+            'prenom' => 'required',
+            'adresse' => 'required',
+            'codePostal' => 'required',
+            'ville' => 'required',
+            'tel' => 'required',
+            'logo' => 'required',
+        ]);
+
+
         $client=new Client();
         $client->prenom=$request->prenom;
         $client->nom=$request->nom;
@@ -80,6 +92,16 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
+        $this->validate($request, [
+            'email' => 'required',
+            'nom' => 'required',
+            'prenom' => 'required',
+            'adresse' => 'required',
+            'codePostal' => 'required',
+            'ville' => 'required',
+            'tel' => 'required',
+        ]);
+
         $clien= Client::find($client->id_client) ;
         $clien->prenom=$request->prenom;
         $clien->nom=$request->nom;
@@ -91,6 +113,15 @@ class ClientController extends Controller
         $clien->pays=$request->pays;
         $clien->website=$request->website;
         $clien->tel=$request->tel;
+
+        if ($request->hasFile("logo")) {
+            $img = $request->logo;
+            $extention=$img->getClientOriginalExtension();
+
+            $name = Str::slug("Logo-". date("Y-m-d h:i:sa"), '-').'.'.$extention;
+            $img->storeAs('logo', $name, 'public');
+            $client->logo = $name;
+        }
         
         $clien->save();
         return redirect('/clients');

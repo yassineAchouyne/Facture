@@ -2224,9 +2224,9 @@ progress {
 .form-control:focus {
   color: #212529;
   background-color: #fff;
-  border-color: #fab19d;
+  border-color: #4e73df;
   outline: 0;
-  box-shadow: 0 0 0 0.25rem rgba(244, 98, 58, 0.25);
+  box-shadow: 0 0 0 0.25rem rgba(78, 115, 223, 0.25);
 }
 .form-control::-webkit-date-and-time-value {
   height: 1.5em;
@@ -3030,7 +3030,7 @@ textarea.form-control-lg {
 }
 .btn-check:focus + .btn, .btn:focus {
   outline: 0;
-  box-shadow: 0 0 0 0.25rem rgba(244, 98, 58, 0.25);
+  box-shadow: 0 0 0 0.25rem rgba(78, 115, 223, 0.25);
 }
 .btn:disabled, .btn.disabled, fieldset:disabled .btn {
   pointer-events: none;

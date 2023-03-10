@@ -5,9 +5,22 @@
 @endsection
 
 @section('content')
-<div class="container">
+<style>
+    .fixed-top{
+        position: absolute !important;
+        
+        /* height: 100px !important; */
+    }
+    @media (max-width:767px) {
+        .st{
+        margin-top: 200px !important;
+    }
+    }
+    
+</style>
+<div class="container st">
     <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-xxl-6">
             <div class="card">
                 <div class="card-header bg-primary text-white">{{ __('S\'inscrire') }}</div>
 
@@ -37,7 +50,7 @@
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong>Email a déjà été pris.</strong>
                                     </span>
                                 @enderror
                             </div>
@@ -78,7 +91,8 @@
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
+                                        <strong>Le champ du mot de passe doit comporter au moins 8 caractères.</strong>
+                                        <br>OU <strong>Le champ de confirmation du mot de passe ne correspond pas.</strong>
                                     </span>
                                 @enderror
                             </div>
@@ -94,29 +108,10 @@
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary w-100">
                                     {{ __('Enregistrer') }}
                                 </button>
                             </div>
-                        </div>
-                        <div class="txt1 text-center p-t-54 p-b-20">
-                            <span>
-                                Ou inscrivez-vous en utilisant
-                            </span>
-                        </div>
-
-                        <div class="flex-c-m">
-                            <a href="#" class="login100-social-item bg1">
-                                <i class="bi bi-facebook"></i>
-                            </a>
-
-                            <a href="#" class="login100-social-item bg2">
-                                <i class="bi bi-linkedin"></i>
-                            </a>
-
-                            <a href="#" class="login100-social-item bg3">
-                                <i class="bi bi-google"></i>
-                            </a>
                         </div>
                     </form>
                 </div>

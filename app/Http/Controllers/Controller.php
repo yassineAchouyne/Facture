@@ -2,11 +2,44 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
+
+    public function dashboard(){
+        if(empty(Auth::user())){
+            return view('index');
+        } else {
+            $client = DB::table("clients")->where("id_user",Auth::user()->id)->get();
+            $facture = DB::table('factures')->where("id_user",Auth::user()->id)->get();
+            $chiffreAfire= $facture->where("statut","payer");
+            $total = 0;
+            $tva=0;
+            $Fpayer =count( $facture->where("statut","payer"));
+            $Fnonpayer =count( $facture->where("statut","nonpayer"));
+            foreach ($chiffreAfire as $chiffre){
+                $total = $total + $chiffre->quantite * $chiffre->prixHT ;
+                $tva = $tva + ($chiffre->quantite * $chiffre->prixHT * (1+$chiffre->tva/100)) - ($chiffre->quantite * $chiffre->prixHT);
+            }
+
+            $data=[
+                'nbrClient' => count($client),
+                'nbrFacture' => count($facture),
+                'total' => $total,
+                'tva' => $tva,
+                'Fpayer' => $Fpayer,
+                'Fnonpayer' => $Fnonpayer,
+            ];
+            return view('Admin.dashboard',$data);
+        }
+
+    }
+
 }

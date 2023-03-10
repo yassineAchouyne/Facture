@@ -10,38 +10,34 @@
     
     <!-- Email address input-->
     <div class="form-floating mb-3">
-        <input class="form-control" id="email" name="email" required type="email" placeholder="name@example.com" data-sb-validations="required,email" />
-        <label for="email">Adresse Email</label>
-        <div class="invalid-feedback" data-sb-feedback="email:required">Un email est requis.</div>
-        <div class="invalid-feedback" data-sb-feedback="email:email">Email n’est pas valide.</div>
+        <input class="form-control @error('email') is-invalid @enderror" value="{{old('email')}}" id="email" name="email" type="email" placeholder="name@example.com" />
+        <label for="email" class="@error('email') text-danger  @enderror" >Adresse Email </label>
     </div>
     <!-- Prénom input-->
     <div class="form-floating mb-3">
-        <input class="form-control" id="prenom" name="prenom" required type="text" placeholder="Enter your prenom..." data-sb-validations="required" />
-        <label for="prenom">Prénom</label>
-        <div class="invalid-feedback" data-sb-feedback="prenom:required">Un nom est requis.</div>
+        <input class="form-control @error('prenom') is-invalid @enderror" value="{{old('prenom')}}"  id="prenom" name="prenom"  type="text" placeholder="Enter your prenom..." data-sb-validations="required" />
+        <label for="prenom"  class="@error('prenom') text-danger  @enderror">Prénom </label>
     </div>
     <!-- Name input-->
     <div class="form-floating mb-3">
-        <input class="form-control" id="nom" name="nom" required type="text" placeholder="Enter your nom..." data-sb-validations="required" />
-        <label for="nom">Nom</label>
-        <div class="invalid-feedback" data-sb-feedback="nom:required">Un nom est requis.</div>
+        <input class="form-control @error('nom') is-invalid @enderror" id="nom" name="nom"  value="{{old('nom')}}"  type="text" placeholder="Enter your nom..." data-sb-validations="required" />
+        <label for="nom" class="@error('nom') text-danger  @enderror">Nom  </label>
     </div>
 
     <!--Address input-->
     <div class="form-floating mb-3">
-        <input class="form-control" id="adresse" name="adresse" type="text" placeholder="Adresse" data-sb-validations="required" />
-        <label for="adresse">Adresse</label>
+        <input class="form-control @error('adresse') is-invalid @enderror" id="adresse" value="{{old('adresse')}}"  name="adresse" type="text" placeholder="Adresse"/>
+        <label for="adresse" class="@error('adresse') text-danger  @enderror">Adresse  </label>
     </div>
     <!--Code Postal input-->
     <div class="form-floating mb-3">
-        <input class="form-control" id="codePostal" name="codePostal" type="number" placeholder="code Postal" data-sb-validations="required" />
-        <label for="adresse">Code Postal</label>
+        <input class="form-control @error('codePostal') is-invalid @enderror" id="codePostal"  value="{{old('codePostal')}}" name="codePostal" type="number" placeholder="code Postal"/>
+        <label for="codePostal" class="@error('codePostal') text-danger  @enderror">Code Postal </label>
     </div>
     <!--Ville input-->
     <div class="form-floating mb-3">
-        <input class="form-control" id="ville" name="ville" type="text" placeholder="ville" data-sb-validations="required" />
-        <label for="ville">Ville</label>
+        <input class="form-control @error('ville') is-invalid @enderror" id="ville" value="{{old('ville')}}"  name="ville" type="text" placeholder="ville" />
+        <label for="ville"  class="@error('ville') text-danger  @enderror">Ville</label>
     </div>
     <!--Pays select-->
     <div class="mb-3">
@@ -50,21 +46,19 @@
     </div>
      <!--Site Internit input-->
      <div class="form-floating mb-3">
-        <input class="form-control" id="site" name="website" type="url" placeholder="Site Internit" data-sb-validations="required" />
+        <input class="form-control" id="site" name="website" type="url" placeholder="Site Internit"  />
         <label for="ville">Site Internet</label>
     </div>
     
     <!-- Phone number input-->
     <div class="form-floating mb-3">
-        <input class="form-control" id="phone" type="numbre" name="tel" placeholder="(123) 456-7890" data-sb-validations="required" />
-        <label for="phone">Numéro de Téléphone</label>
-        <div class="invalid-feedback" data-sb-feedback="phone:required">Un numéro de téléphone est requis.</div>
+        <input class="form-control @error('tel') is-invalid @enderror" id="phone"  value="{{old('tel')}}"  type="numbre" name="tel" placeholder="(123) 456-7890"/>
+        <label for="phone" class="@error('tel') text-danger  @enderror">Numéro de Téléphone  </label>
     </div>
     <!-- avatar input -->
     <div class="mb-3">
-        <label for="logo" class="ml-3">Numéro de Téléphone</label>
-        <input class="form-control" id="logo" type="file" name="logo" data-sb-validations="required" />
-        <div class="invalid-feedback" data-sb-feedback="logo:required">Un numéro de téléphone est requis.</div>
+        <label for="logo" class="ml-3 @error('logo') text-danger  @enderror">Logo de Client </label>
+        <input class="form-control @error('logo') is-invalid @enderror" id="logo" type="file" name="logo" />
     </div>
     <!-- Submit Button-->
     <div class="d-grid"><button class="btn btn-primary btn-xl" id="submitButton" type="submit">Créer le client</button></div>

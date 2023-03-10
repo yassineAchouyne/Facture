@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\FactureController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ProfileController;
@@ -18,11 +19,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    if(empty(Auth::user())) return view('index');
-    else return view('Admin.dashboard');
-    
-});
+Route::get('/',[Controller::class,"dashboard"]);
 
 Auth::routes();
 

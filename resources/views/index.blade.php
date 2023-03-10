@@ -180,7 +180,7 @@ Factur.ma créez, éditez et imprimez facilement tous vos documents : devis, fac
     <!-- Footer-->
     <footer class="bg-light py-5">
         <div class="container px-4 px-lg-5">
-            <div class="small text-center text-muted">Copyright &copy; 2023 - Factur.ma</div>
+            <div class="small text-center text-muted">Copyright &copy; {{date('Y')}} - Factur.ma</div>
         </div>
     </footer>
     <!-- Bootstrap core JS-->
