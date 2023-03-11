@@ -24,7 +24,6 @@ class PdfController extends Controller
         ];
         
         $pdf = PDF::loadView('myPDF', $data);
-
         return $pdf->download($client->nom.$facture->id_facture.'.pdf');
         // return view("myPDF",$data);
     }
