@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\FactureController;
@@ -40,4 +41,6 @@ Route::resource("factures",FactureController::class);
 
 Route::resource('/profile',ProfileController::class);
 
-Route::get('/pdf',[PdfController::class,"generatePDF"]);
+Route::get('/pdf/{id_facture}',[PdfController::class,"generatePDF"]);
+
+Route::get('/action', [AjaxController::class, 'action'])->name('action');

@@ -10,21 +10,21 @@ use PDF;
 
 class PdfController extends Controller
 {
-    public function generatePDF()
+    public function generatePDF($id)
 
     {
         ini_set('max_execution_time', 180);
         $user = auth()->user();
-        $facture = Facture::find(1);
+        $facture = Facture::find($id);
         $client = $facture->client;
         $data = [
             'facture' => $facture,
             'client' => $client,
             'user' => $user,
+            'logo'=> public_path("/storage/logo/".$client->logo)
         ];
         
         $pdf = PDF::loadView('myPDF', $data);
-        return $pdf->download($client->nom.$facture->id_facture.'.pdf');
-        // return view("myPDF",$data);
+        return $pdf->download($client->prenom.$client->nom.$facture->id_facture.'.pdf');
     }
 }

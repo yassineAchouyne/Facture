@@ -7,7 +7,7 @@
 @section('action')
 
 <li class="dropdown no-arrow mt-4 mr-3 ml-3">
-    <a class="dropdown-toggle" href="/pdf" role="button">
+    <a class="dropdown-toggle" href="/pdf/{{$facture->id_facture}}" role="button">
         <i class="bi bi-file-earmark-arrow-down-fill fa-md fa-fw text-gray-400"></i>
     </a>
 </li>
@@ -64,7 +64,7 @@
         <h5 class="pb-2">Destinataire</h5>
         <div class="m-2 border-bottom col-lg-6 pb-2 row">
             <span class="text-secondary  col">Destinataire :</span>
-            <a href="" class="ml-5 text-decoration-none  col">{{$client->prenom . ' ' . $client->nom }}</a>
+            <a href="/clients/{{$client->id_client}}" class="ml-5 text-decoration-none  col">{{$client->prenom . ' ' . $client->nom }}</a>
         </div>
         <div class="m-2 border-bottom col-lg-6 pb-2 row">
             <span class="text-secondary  col">Adresse :</span>

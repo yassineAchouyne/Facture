@@ -3,12 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-    <!-- <meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">  -->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Document</title>
-    <!-- <link rel="stylesheet" href='css/bootstrap.min.css'> -->
+    <title>Facture.ma</title>
     <style>
         .invoice .top-right {
             text-align: right;
@@ -78,6 +74,7 @@
             width: 100%;
             display: flex;
             justify-content: center;
+            margin-top: 5px;
         }
 
         .img>img {
@@ -313,7 +310,7 @@
                         </div>
 
                         <div class="img">
-                            <img src='{{ asset("/storage/logo/".$client->logo) }}' width="150" height="150" />
+                            <img src='{{$logo}}' width="150" height="150" />
                         </div>
 
 
@@ -323,12 +320,8 @@
                         <div class="facture">
                             <p> <b>Facture numéro </b> {{$facture->id_facture}} </p>
                         </div>
-
-                        <div class="mt-1">
+                        <div class="">
                             <p> <b>Client : </b> {{$client->prenom." ".$client->nom}} </p>
-                        </div>
-
-                        <div class="mt-1">
                             <p><b>Adresse : </b> {{$client->adresse . " " . $client->codePostal. " " . $client->ville}} </p>
                         </div>
 
@@ -371,15 +364,23 @@
                             </div>
                         </div>
 
-                        <div>
-                            <div class=" text-muted row">
-                                <p class="col-5 row"> <b class="col-6"> Auto Entrepreneur : </b><span class="col">{{$user->name}}</span> </p>
-                                <p class="col-4 row"> <b class="col-6"> Adresse : </b><span class="col">{{$user->adresse}}</span> </p>
-                            </div>
-                            <div class=" text-muted row">
-                                <p class="col-5 row"> <b class="col-6"> Numéro de Téléphone : </b><span class="col">{{$user->tel}}</span> </p>
-                                <p class="col-4 row"> <b class="col-6"> Email : </b><span class="col">{{$user->email}}</span> </p>
-                            </div>
+                        <div style="margin-top: 50px;">
+                            <table class="text-muted">
+                                <tr>
+                                    <td><b> Auto Entrepreneur </b></td>
+                                    <td>: {{$user->name}}</td>
+                                    <td style="width: 50px;"></td>
+                                    <td><b>  Adresse </b></td>
+                                    <td>: {{$user->adresse}}</td>
+                                </tr>
+                                <tr>
+                                    <td><b>  Numéro de Téléphone  </b></td>
+                                    <td>: {{$user->tel}}</td>
+                                    <td style="width: 50px;"></td>
+                                    <td><b>  Email </b></td>
+                                    <td>: {{$user->email}}</td>
+                                </tr>
+                            </table>
                         </div>
                     </div>
                 </div>
