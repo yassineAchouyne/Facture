@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Client;
+use App\Models\Facture;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
@@ -40,6 +41,13 @@ class Controller extends BaseController
             return view('Admin.dashboard',$data);
         }
 
+    }
+
+    public function ChangeStatut ($id){
+        $facture = Facture::find($id);
+        $facture->statut="payer";
+        $facture->update();
+        return redirect("/factures/$id");
     }
 
 }

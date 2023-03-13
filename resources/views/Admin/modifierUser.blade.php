@@ -60,7 +60,9 @@
                 <div class="card mb-4">
                     <div class="card-body text-center">
                         <div class="upload">
-                            <img src="{{ asset('storage/avatars/'.$user->avatar) }}" id="image" width=158 height=158 alt="">
+                            <div class=" d-flex justify-content-center">
+                                <img src="{{ asset('storage/avatars/'.$user->avatar) }}" id="image" width=158 height=158 alt="">
+                            </div>
                             <div class="round bg-primary">
                                 <input onchange="previewPicture(this)" name="avatar" accept=".jpg, .png, .gif" id="file" type="file">
                                 <i class="bi bi-pencil-square" style="color: #fff;"></i>

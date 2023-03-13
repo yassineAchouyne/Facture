@@ -4,6 +4,7 @@ use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\FactureController;
+use App\Http\Controllers\FormJiridiqueController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
@@ -44,3 +45,7 @@ Route::resource('/profile',ProfileController::class);
 Route::get('/pdf/{id_facture}',[PdfController::class,"generatePDF"]);
 
 Route::get('/action', [AjaxController::class, 'action'])->name('action');
+
+Route::get('/statut/{id}',[Controller::class,"ChangeStatut"]);
+
+Route::resource("/form",FormJiridiqueController::class);

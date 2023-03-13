@@ -56,7 +56,7 @@
                 <div>
                     <a href="/factures/{{$facture->id_facture}}" class="link h6 m-0 font-weight-bold text-primary">
                         @if($facture->statut=="nonpayer")
-                        Provisoire
+                        F{{ $facture->nbr_facture }}
                         @else
                         <a class="fs-5 email_link">F{{ $facture->id_facture }}</a> <span class="ml-3 text-success fs-6">Finalisée</span>
                         @endif
@@ -74,6 +74,9 @@
                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                         <a class="dropdown-item" href="/factures/{{ $facture->id_facture}}/edit">Modifier</a>
                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#popupdel">Supprimer</a>
+                        @if($facture->statut!="payer")
+                        <a class="dropdown-item" href="/statut/{{$facture->id_facture}}">Facture est Payer</a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -81,11 +84,11 @@
             <div class="card-body">
                 <div class="pb-2">
                     <i class="bi bi-cash text-secondary mr-2 fs-4"></i>
-                    <span class="fs-4 text-secondary "">{{ $facture->quantite* $facture->prixHT*(1+$facture->tva/100) }} DH</span>
-            </div>
-            <div class=" pb-2">
-                        <i class="bi bi-alarm-fill text-secondary mr-2 fs-6"></i>
-                        <span class="fs-6 text-secondary">{{$facture->created_at}}</span>
+                    <span class="fs-4 text-secondary ">{{ $facture->quantite* $facture->prixHT*(1+$facture->tva/100) }} DH</span>
+                </div>
+                <div class=" pb-2">
+                    <i class="bi bi-alarm-fill text-secondary mr-2 fs-6"></i>
+                    <span class="fs-6 text-secondary">{{$facture->created_at}}</span>
                 </div>
             </div>
         </div>

@@ -51,7 +51,6 @@
             left: -5px;
             top: 11px;
             width: 120px;
-            background-color: #66c591;
             font-size: 15px;
             color: #fff;
         }
@@ -266,36 +265,47 @@
             margin: 0;
             padding: 0;
         }
-        .col-5 {
-  flex: 0 0 auto;
-  width: 41.66666667%;
-}
-.col-4 {
-  flex: 0 0 auto;
-  width: 33.33333333%;
-}
-.col-6 {
-  flex: 0 0 auto;
-  width: 50%;
-}
-.row {
-  --bs-gutter-x: 1.5rem;
-  --bs-gutter-y: 0;
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: calc(-1 * var(--bs-gutter-y));
-  margin-right: calc(-0.5 * var(--bs-gutter-x));
-  margin-left: calc(-0.5 * var(--bs-gutter-x));
-}
-.row > * {
-  flex-shrink: 0;
-  width: 100%;
-  max-width: 100%;
-  padding-right: calc(var(--bs-gutter-x) * 0.5);
-  padding-left: calc(var(--bs-gutter-x) * 0.5);
-  margin-top: var(--bs-gutter-y);
-}
 
+        .col-5 {
+            flex: 0 0 auto;
+            width: 41.66666667%;
+        }
+
+        .col-4 {
+            flex: 0 0 auto;
+            width: 33.33333333%;
+        }
+
+        .col-6 {
+            flex: 0 0 auto;
+            width: 50%;
+        }
+
+        .row {
+            --bs-gutter-x: 1.5rem;
+            --bs-gutter-y: 0;
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: calc(-1 * var(--bs-gutter-y));
+            margin-right: calc(-0.5 * var(--bs-gutter-x));
+            margin-left: calc(-0.5 * var(--bs-gutter-x));
+        }
+
+        .row>* {
+            flex-shrink: 0;
+            width: 100%;
+            max-width: 100%;
+            padding-right: calc(var(--bs-gutter-x) * 0.5);
+            padding-left: calc(var(--bs-gutter-x) * 0.5);
+            margin-top: var(--bs-gutter-y);
+        }
+
+        .bgcolor1{
+            background-color: #66c591;
+        }
+        .bgcolor{
+            background-color: red;
+        }
     </style>
 </head>
 
@@ -306,7 +316,11 @@
                 <div class="panel panel-default invoice" id="invoice">
                     <div class="panel-body">
                         <div class="invoice-ribbon">
-                            <div class="ribbon-inner">PAID</div>
+                            @if($facture->statut=="payer")
+                                <div class="ribbon-inner bgcolor1" >Payer</div>
+                            @else
+                                <div class="ribbon-inner bgcolor" >Non Payer</div>
+                            @endif
                         </div>
 
                         <div class="img">
@@ -318,7 +332,7 @@
                             <p> <b>Date :</b> {{$facture->dateEmission}} </p>
                         </div>
                         <div class="facture">
-                            <p> <b>Facture numéro </b> {{$facture->id_facture}} </p>
+                            <p> <b>Facture numéro </b> {{$facture->nbr_facture}} </p>
                         </div>
                         <div class="">
                             <p> <b>Client : </b> {{$client->prenom." ".$client->nom}} </p>
@@ -370,14 +384,14 @@
                                     <td><b> Auto Entrepreneur </b></td>
                                     <td>: {{$user->name}}</td>
                                     <td style="width: 50px;"></td>
-                                    <td><b>  Adresse </b></td>
+                                    <td><b> Adresse </b></td>
                                     <td>: {{$user->adresse}}</td>
                                 </tr>
                                 <tr>
-                                    <td><b>  Numéro de Téléphone  </b></td>
+                                    <td><b> Numéro de Téléphone </b></td>
                                     <td>: {{$user->tel}}</td>
                                     <td style="width: 50px;"></td>
-                                    <td><b>  Email </b></td>
+                                    <td><b> Email </b></td>
                                     <td>: {{$user->email}}</td>
                                 </tr>
                             </table>

@@ -1,7 +1,7 @@
 @extends("layouts.index")
 
 @section('haider')
-<h2 class="text-primary">Facture F{{$facture->id_facture}}</h2>
+<h2 class="text-primary">Facture F{{$facture->nbr_facture}}</h2>
 @endsection
 
 @section('action')
@@ -19,7 +19,11 @@
     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
         <a class="dropdown-item" href="/factures/{{ $facture->id_facture}}/edit">Modifier</a>
         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#popupdel">Supprimer</a>
+        @if($facture->statut!="payer")
+            <a class="dropdown-item" href="/statut/{{$facture->id_facture}}" >Facture est Payer</a>
+        @endif
     </div>
+    <!-- pupup supprimer -->
     <div class="modal fade" id="popupdel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -38,7 +42,6 @@
                 </div>
             </div>
         </div>
-    </div>
 </li>
 
 @endsection
@@ -49,7 +52,11 @@
         <h5 class="pb-2">Informations</h5>
         <div class="m-2 border-bottom col-lg-6 pb-2 row">
             <span class="text-secondary col">Statut :</span>
-            <span class="ml-5 col">{{$facture->statut}}</span>
+            @if($facture->statut=="payer")
+                <span class="ml-5 col badge badge-success">{{$facture->statut}}</span>
+            @else
+                <span class="ml-5 col badge badge-danger">{{$facture->statut}}</span>
+            @endif
         </div>
         <div class="m-2 border-bottom col-lg-6 pb-2 row">
             <span class="text-secondary  col">Créée le :</span>

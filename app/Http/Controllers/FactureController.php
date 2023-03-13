@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use App\Models\Facture;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -43,6 +44,10 @@ class FactureController extends Controller
             'tva'=>'required',
         ]);
 
+        $user=User::find(Auth::user()->id)  ;
+        $user->nbr_facture=$user->nbr_facture+1 ;
+        $user->update();
+
         $facture=new Facture();
         $facture->id_client = $request->client;
         $facture->dateEmission = $request->dateEmission;
@@ -53,6 +58,7 @@ class FactureController extends Controller
         $facture->Description = $request->description;
         $facture->modePayment = $request->modePayment;
         $facture->id_user = Auth::user()->id ;
+        $facture->nbr_facture = $user->nbr_facture;
 
         $facture->save();
         return redirect("/factures") ;
