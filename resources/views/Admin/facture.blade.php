@@ -84,7 +84,7 @@
             <div class="card-body">
                 <div class="pb-2">
                     <i class="bi bi-cash text-secondary mr-2 fs-4"></i>
-                    <span class="fs-4 text-secondary ">{{ $facture->quantite* $facture->prixHT*(1+$facture->tva/100) }} DH</span>
+                    <span class="fs-4 text-secondary ">{{ $function->totalHT($facture) }} DH</span>
                 </div>
                 <div class=" pb-2">
                     <i class="bi bi-alarm-fill text-secondary mr-2 fs-6"></i>

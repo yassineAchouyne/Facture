@@ -18,17 +18,27 @@ class FactureController extends Controller
     public function index()
     {
         $factures = DB::table("factures")->where("id_user", Auth::user()->id)->get();
-        return view("admin.facture", compact("factures"));
-    }
+        $function= $this;
 
+        return view("admin.facture", compact("factures","function"));
+    }
+    public function totalHT($f){
+        $qtt = json_decode($f->quantite, true);
+        $pr = json_decode($f->prixHT, true);
+        $total = 0;
+        foreach ($qtt as $i=>$q) {
+            $total = $total + $q * $pr[$i];
+        }
+        return $total;
+    }
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
         $clients = DB::table("clients")->where("id_user", Auth::user()->id)->get();
-        $idc=0;
-        return view("admin.ajouterfacture", compact("clients","idc"));
+        $idc = 0;
+        return view("admin.ajouterfacture", compact("clients", "idc"));
     }
 
     /**
@@ -37,35 +47,33 @@ class FactureController extends Controller
     public function store(Request $request)
     {
 
-        return dd($request->all());
+        // return json_encode($request->quantite,JSON_FORCE_OBJECT);
 
-        $this->validate($request,[
-            'client'=>'required',
-            'dateEmission'=>'required',
-            'dateFin'=>'required',
-            'quantite'=>'required',
-            'prixHT'=>'required',
-            'tva'=>'required',
+        $this->validate($request, [
+            'client' => 'required',
+            'dateEmission' => 'required',
+            'dateFin' => 'required',
+            'quantite' => 'required',
+            'prixHT' => 'required',
         ]);
 
-        $user=User::find(Auth::user()->id)  ;
-        $user->nbr_facture=$user->nbr_facture+1 ;
+        $user = User::find(Auth::user()->id);
+        $user->nbr_facture = $user->nbr_facture + 1;
         $user->update();
 
-        $facture=new Facture();
+        $facture = new Facture();
         $facture->id_client = $request->client;
         $facture->dateEmission = $request->dateEmission;
         $facture->dateFin = $request->dateFin;
-        $facture->quantite = $request->quantite;
-        $facture->prixHT = $request->prixHT;
-        $facture->tva = $request->tva;
-        $facture->Description = $request->description;
+        $facture->quantite = json_encode($request->quantite, JSON_FORCE_OBJECT);
+        $facture->prixHT = json_encode($request->prixHT, JSON_FORCE_OBJECT);
+        $facture->Description = json_encode($request->description, JSON_FORCE_OBJECT);
         $facture->modePayment = $request->modePayment;
-        $facture->id_user = Auth::user()->id ;
+        $facture->id_user = Auth::user()->id;
         $facture->nbr_facture = $user->nbr_facture;
 
         $facture->save();
-        return redirect("/factures") ;
+        return redirect("/factures");
     }
 
     /**
@@ -73,8 +81,8 @@ class FactureController extends Controller
      */
     public function show(Facture $facture)
     {
-        $client= Client::find($facture->id_client) ;
-        return view("admin.showFacture",compact("facture","client"));
+        $client = Client::find($facture->id_client);
+        return view("admin.showFacture", compact("facture", "client"));
     }
 
     /**
@@ -83,7 +91,7 @@ class FactureController extends Controller
     public function edit(Facture $facture)
     {
         $clients = DB::table("clients")->where("id_user", Auth::user()->id)->get();
-        return view("admin.modifierFacture",compact("facture","clients"));
+        return view("admin.modifierFacture", compact("facture", "clients"));
     }
 
     /**
@@ -91,7 +99,7 @@ class FactureController extends Controller
      */
     public function update(Request $request, Facture $facture)
     {
-        $factur=Facture::find($facture->id_facture);
+        $factur = Facture::find($facture->id_facture);
         $factur->id_client = $request->client;
         $factur->dateEmission = $request->dateEmission;
         $factur->dateFin = $request->dateFin;
@@ -102,7 +110,7 @@ class FactureController extends Controller
         $factur->modePayment = $request->modePayment;
 
         $factur->save();
-        return redirect("/factures") ;
+        return redirect("/factures");
     }
 
     /**

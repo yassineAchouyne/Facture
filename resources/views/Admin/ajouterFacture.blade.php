@@ -3,17 +3,23 @@
 @section('style')
 
 <style>
-    .buttonadd{
+    .buttonadd {
         position: relative;
     }
-    .buttonadd>button{
+
+    .buttonadd>button {
         position: absolute;
         right: 0;
         z-index: 1;
-        bottom: 0;
+        top: 60px;
     }
-    hr{
-        height:2px;border-width:0;color:gray;background-color:gray;
+
+    hr {
+        height: 2px;
+        border-width: 0;
+        color: gray;
+        background-color: gray;
+        
     }
 </style>
 
@@ -62,39 +68,28 @@
                 <!-- Quantité input-->
                 <div class="mb-3 col">
                     <label for="quantite">Quantité</label>
-                    <input class="form-control" id="quantite" onkeyup="calcPrix()" value="0" name="quantite[0]['quantite']" required type="number" data-sb-validations="required" />
+                    <input class="form-control" id="quantite" onkeyup="calcPrix()" value="0" name="quantite[0]" required type="number" data-sb-validations="required" />
                     <div class="invalid-feedback" data-sb-feedback="quantite:required">Un nom est requis.</div>
                 </div>
 
                 <!-- prix input-->
                 <div class="mb-3 col">
                     <label for="prixHT">Prix Unitaire (MAD)</label>
-                    <input class="form-control" id="prixHT" name="prixHT[0][prixHT]" value="0" onkeyup="calcPrix()" required type="number" data-sb-validations="required" />
+                    <input class="form-control" id="prixHT" name="prixHT[0]" value="0" onkeyup="calcPrix()" required type="number" data-sb-validations="required" />
                     <div class="invalid-feedback" data-sb-feedback="prixHT:required">Un nom est requis.</div>
                 </div>
 
-                <!-- TVA input-->
-                <div class="mb-3 col">
-                    <label class="ml-3" onkeyup="calcPrix()" for="tva">TVA (%)</label>
-                    <input class="form-control" id="tva" name="tva[0]['tva']" value="0" onkeyup="calcPrix()" required type="number" data-sb-validations="required" />
-                </div>
-            </div>
-            <div class="row">
+                <!-- </div>
+            <div class="row"> -->
                 <!-- Total HT input-->
-                <div class="form-floating mb-3 col">
-                    <input class="form-control" id="totalHT" disabled value="0" name="totalHT[0]['totalHT']" required type="number" />
+                <div class="form-floatin mb-3 col">
                     <label for="totalHT">Prix HT (MAD) </label>
-                </div>
-
-                <!-- Total ttc input-->
-                <div class="form-floating mb-3 col">
-                    <input class="form-control" id="totalTTC" disabled value="0" name="totalTTC[0]['totalTTC']" required type="number" />
-                    <label for="totalHT">Prix TTC (MAD)</label>
+                    <input class="form-control" id="totalHT" disabled value="0" name="totalHT[0]" required type="number" />
                 </div>
             </div>
             <!-- Description input-->
             <div class="form-floating mb-3">
-                <textarea class="form-control" id="description" name="description[0][description]" type="text" placeholder="description" style="height: 5rem"></textarea>
+                <textarea class="form-control" id="description" name="description[0]" type="text" placeholder="description" style="height: 3rem"></textarea>
                 <label for="message">description</label>
             </div>
         </div>
@@ -109,7 +104,6 @@
             <option value="PayPal">PayPal</option>
         </select>
     </div>
-
     <!-- Submit Button-->
     <div class="d-grid"><button class="btn btn-primary btn-xl" id="submitButton" type="submit">Créer la facture</button></div>
 </form>
@@ -120,15 +114,14 @@
 @section('script')
 <script>
     function calcPrix() {
-        
-        var totalHT = document.getElementById('totalHT');
-        var totalTTC = document.getElementById('totalTTC');
-        var tva = document.getElementById('tva').value;
-        var prixHT = document.getElementById('prixHT').value;
-        var quantite = document.getElementById('quantite').value;
-
-        totalHT.value = parseInt(quantite) * parseInt(prixHT)
-        totalTTC.value = parseInt(totalHT.value) * parseInt(tva) / 100 + parseInt(totalHT.value)
+        var dynamicadd = document.getElementById('dynamicadd');
+        var table = dynamicadd.getElementsByClassName('row')
+        for(i=0;i<table.length;i++){
+            var quantite = table[i].children[0].children[1].value;
+            var prixHT = table[i].children[1].children[1].value;
+            var totalHT = table[i].children[2].children[1];
+            totalHT.value = quantite*prixHT;
+        }
     }
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -138,7 +131,7 @@
         $('#add').click(function() {
             //alert('ok');
             i++;
-            $('#dynamicadd').append('<div id="row'+i+'" class="buttonadd" > <hr style="height:2px;border-width:0;color:gray;background-color:#4e73df"> <button type="button" id="'+i+'" class="btn btn-danger remove_row">-</button> <div class="row"><div class="mb-3 col"><label for="quantite">Quantité</label><input class="form-control" id="quantite" onkeyup="calcPrix()" value="0" name="quantite['+i+']["quantite"]" required type="number" data-sb-validations="required" /><div class="invalid-feedback" data-sb-feedback="quantite:required">Un nom est requis.</div></div><div class="mb-3 col"><label for="prixHT">Prix Unitaire (MAD)</label><input class="form-control" id="prixHT" name="prixHT['+i+']["prixHT"]" value="0" onkeyup="calcPrix()" required type="number" data-sb-validations="required" /><div class="invalid-feedback" data-sb-feedback="prixHT:required">Un nom est requis.</div></div><div class="mb-3 col"><label class="ml-3" onkeyup="calcPrix()" for="tva">TVA (%)</label><input class="form-control" id="tva" name="tva['+i+']["tva"]" value="0" onkeyup="calcPrix()" required type="number" data-sb-validations="required" /></div></div><div class="row"><div class="form-floating mb-3 col"><input class="form-control" id="totalHT" disabled value="0" name="prixHT['+i+']["prixHT"]" required type="number" /><label for="totalHT">Prix HT (MAD) </label></div><div class="form-floating mb-3 col"><input class="form-control" id="totalTTC" disabled value="0" name="totalTTC['+i+']["totalTTC"]" required type="number" /><label for="totalHT">Prix TTC (MAD)</label></div></div><div class="form-floating mb-3"><textarea class="form-control" id="description" name="description['+i+']["description"]" type="text" placeholder="description" style="height: 5rem"></textarea><label for="message">description</label></div></div>');
+            $('#dynamicadd').append('<div style="border-top: 1px solid #4e73df;"  id="row' + i + '" class="buttonadd"><button type="button" id="' + i + '" class="btn btn-danger remove_row">-</button><div class="row"><div class="mb-3 col"><label for="quantite">Quantité</label><input class="form-control" id="quantite" onkeyup="calcPrix()" value="0" name="quantite[' + i + ']" required type="number" data-sb-validations="required" /></div><div class="mb-3 col"><label for="prixHT">Prix Unitaire (MAD)</label><input class="form-control" id="prixHT" name="prixHT[' + i + '][" prixHT"]" value="0" onkeyup="calcPrix()" required type="number" data-sb-validations="required" /></div><div class="mb-3 col"><label for="totalHT">Prix HT (MAD) </label><input class="form-control" id="totalHT" disabled value="0" name="prixHT[' + i + ']" required type="number" /></div></div><div class="form-floating mb-3"> <textarea class="form-control" id="description" name="description[' + i + ']" type="text" placeholder="description" style="height: 3rem"></textarea><label for="message">description</label></div></div>');
         });
         $(document).on('click', '.remove_row', function() {
             var row_id = $(this).attr("id");

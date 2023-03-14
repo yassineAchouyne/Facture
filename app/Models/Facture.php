@@ -9,7 +9,7 @@ class Facture extends Model
 {
     use HasFactory;
     protected $primaryKey="id_facture";
-    protected $fillable = ['dateEmission','dateFin','quantite','prixHT','modePayment','tva'];
+    protected $fillable = ['dateEmission','dateFin','quantite','prixHT','modePayment',];
 
     public function client(){
         return $this->belongsTo(Client::class,'id_client');
