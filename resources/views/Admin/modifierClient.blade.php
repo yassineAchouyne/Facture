@@ -53,11 +53,7 @@
         <input class="form-control @error('tel') is-invalid @enderror" id="phone" type="numbre" name="tel" value="{{$client->tel}}"  placeholder="(123) 456-7890" data-sb-validations="required" />
         <label for="phone">Numéro de Téléphone</label>
     </div>
-    <!-- avatar input -->
-    <div class="mb-3">
-        <label for="logo" class="ml-3">Logo de Client </label>
-        <input class="form-control " id="logo" type="file" name="logo" />
-    </div>
+
     <!-- Submit Button-->
     <div class="d-grid"><button class="btn btn-primary btn-xl" id="submitButton" type="submit">Modifier le client</button></div>
 </form>

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Facture</title>
+    <title>Factura</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="assets/img/icon-logo.png.webp" />
     <!-- Bootstrap Icons-->
@@ -25,7 +25,7 @@
     <!-- Navigation-->
     <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
         <div class="container px-4 px-lg-5">
-            <a class="navbar-brand" href="#page-top">Factur.ma</a>
+            <a class="navbar-brand" href="#page-top">Factura.ma</a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto my-2 my-lg-0">
@@ -180,7 +180,7 @@ Factur.ma créez, éditez et imprimez facilement tous vos documents : devis, fac
     <!-- Footer-->
     <footer class="bg-light py-5">
         <div class="container px-4 px-lg-5">
-            <div class="small text-center text-muted">Copyright &copy; {{date('Y')}} - Factur.ma</div>
+            <div class="small text-center text-muted">Copyright &copy; {{date('Y')}} - Factura.ma</div>
         </div>
     </footer>
     <!-- Bootstrap core JS-->

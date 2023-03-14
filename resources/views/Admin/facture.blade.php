@@ -58,7 +58,7 @@
                         @if($facture->statut=="nonpayer")
                         F{{ $facture->nbr_facture }}
                         @else
-                        <a class="fs-5 email_link">F{{ $facture->id_facture }}</a> <span class="ml-3 text-success fs-6">Finalisée</span>
+                        <a class="fs-5 email_link" href="/factures/{{$facture->id_facture}}">F{{ $facture->nbr_facture }}</a> <span class="ml-3 text-success fs-6">Finalisée</span>
                         @endif
                     </a><br>
                     @php($client = DB::table('clients')->where('id_client',$facture->id_client)->get())

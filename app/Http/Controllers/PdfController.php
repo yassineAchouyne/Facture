@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Facture;
+use App\Models\Form_jiridique;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,438 +14,109 @@ class PdfController extends Controller
     public function generatePDF($id)
 
     {
-
-
-        
-        ini_set('max_execution_time', 180);
         $user = auth()->user();
         $facture = Facture::find($id);
         $client = $facture->client;
+        $total=$facture->quantite* $facture->prixHT*(1+$facture->tva/100);
+        $societe= Form_jiridique::find($user->id) ;
         $data = [
             'facture' => $facture,
             'client' => $client,
             'user' => $user,
-            'logo'=> public_path("/storage/logo/".$client->logo)
+            'logo'=> asset("/storage/logo/".$client->logo),
+            'int2str' =>ucfirst($this->int2str($total)),
+            'societe' => $societe,
+            
         ];
-        // $page = $this->html($data);
-
-        // return $page;
         
-        $pdf = PDF::loadView('myPDF', $data);
-        return $pdf->download($client->prenom.$client->nom.$facture->id_facture.'.pdf');
+        if($user->societe){
+            $pdf = PDF::loadView('pdfSociete', $data);
+        }else   $pdf = PDF::loadView('pdfAutoAntre', $data);
+
+        
+        return $pdf->stream($client->prenom.$client->nom.$facture->id_facture.'.pdf');
     }
 
-    public function html($data){
-        $content = '
-        <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Facture.ma</title>
-    <style>
-        .invoice .top-right {
-            text-align: right;
-            padding-right: 20px;
-        }
-
-        .invoice .table-row {
-            margin-left: -15px;
-            margin-right: -15px;
-            margin-top: 25px;
-        }
-
-        .invoice .table-row .table>thead {
-            border-top: 1px solid #ddd;
-        }
-
-        .invoice .table-row .table>thead>tr>th {
-            border-bottom: none;
-        }
-
-        .invoice .table>tbody>tr>td {
-            padding: 8px 20px;
-        }
-
-
-
-        .invoice-ribbon {
-            width: 85px;
-            height: 88px;
-            overflow: hidden;
-            position: absolute;
-            top: -1px;
-            right: 14px;
-        }
-
-        .ribbon-inner {
-            text-align: center;
-            -webkit-transform: rotate(45deg);
-            -moz-transform: rotate(45deg);
-            -ms-transform: rotate(45deg);
-            -o-transform: rotate(45deg);
-            position: relative;
-            padding: 7px 0;
-            left: -5px;
-            top: 11px;
-            width: 120px;
-            font-size: 15px;
-            color: #fff;
-        }
-
-        .ribbon-inner:before,
-        .ribbon-inner:after {
-            content: "";
-            position: absolute;
-        }
-
-        .ribbon-inner:before {
-            left: 0;
-        }
-
-        .ribbon-inner:after {
-            right: 0;
-        }
-
-        .img {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            margin-top: 5px;
-        }
-
-        .img>img {
-            border-radius: 50%;
-        }
-
-        .facture {
-            display: flex;
-            justify-content: center;
-            width: 100%;
-        }
-
-        .facture>p {
-            border: 2px solid black;
-            padding: 10px 30px;
-            background-color: gray;
-            color: white;
-            margin: auto;
-            width: 200px;
-            text-align: center;
-        }
-
-        .table {
-            width: 100%;
-            max-width: 100%;
-            margin-bottom: 1rem;
-        }
-
-        .table th,
-        .table td {
-            padding: 0.75rem;
-            vertical-align: top;
-            border-top: 1px solid #eceeef;
-        }
-
-        .table thead th {
-            vertical-align: bottom;
-            border-bottom: 2px solid #eceeef;
-        }
-
-        .table tbody+tbody {
-            border-top: 2px solid #eceeef;
-        }
-
-        .table .table {
-            background-color: #fff;
-        }
-
-        .table-sm th,
-        .table-sm td {
-            padding: 0.3rem;
-        }
-
-        .table-bordered {
-            border: 1px solid #eceeef;
-        }
-
-        .table-bordered th,
-        .table-bordered td {
-            border: 1px solid #eceeef;
-        }
-
-        .table-bordered thead th,
-        .table-bordered thead td {
-            border-bottom-width: 2px;
-        }
-
-        .table-striped tbody tr:nth-of-type(odd) {
-            background-color: rgba(0, 0, 0, 0.05);
-        }
-
-        .table-hover tbody tr:hover {
-            background-color: rgba(0, 0, 0, 0.075);
-        }
-
-        .table-active,
-        .table-active>th,
-        .table-active>td {
-            background-color: rgba(0, 0, 0, 0.075);
-        }
-
-        .table-hover .table-active:hover {
-            background-color: rgba(0, 0, 0, 0.075);
-        }
-
-        .table-hover .table-active:hover>td,
-        .table-hover .table-active:hover>th {
-            background-color: rgba(0, 0, 0, 0.075);
-        }
-
-        .table-success,
-        .table-success>th,
-        .table-success>td {
-            background-color: #dff0d8;
-        }
-
-        .table-hover .table-success:hover {
-            background-color: #d0e9c6;
-        }
-
-        .table-hover .table-success:hover>td,
-        .table-hover .table-success:hover>th {
-            background-color: #d0e9c6;
-        }
-
-        .table-info,
-        .table-info>th,
-        .table-info>td {
-            background-color: #d9edf7;
-        }
-
-        .table-hover .table-info:hover {
-            background-color: #c4e3f3;
-        }
-
-        .table-hover .table-info:hover>td,
-        .table-hover .table-info:hover>th {
-            background-color: #c4e3f3;
-        }
-
-        .table-warning,
-        .table-warning>th,
-        .table-warning>td {
-            background-color: #fcf8e3;
-        }
-
-        .table-hover .table-warning:hover {
-            background-color: #faf2cc;
-        }
-
-        .table-hover .table-warning:hover>td,
-        .table-hover .table-warning:hover>th {
-            background-color: #faf2cc;
-        }
-
-        .table-danger,
-        .table-danger>th,
-        .table-danger>td {
-            background-color: #f2dede;
-        }
-
-        .table-hover .table-danger:hover {
-            background-color: #ebcccc;
-        }
-
-        .table-hover .table-danger:hover>td,
-        .table-hover .table-danger:hover>th {
-            background-color: #ebcccc;
-        }
-
-        .thead-inverse th {
-            color: #fff;
-            background-color: #292b2c;
-        }
-
-        .thead-default th {
-            color: #464a4c;
-            background-color: #eceeef;
-        }
-
-        .table-inverse {
-            color: #fff;
-            background-color: #292b2c;
-        }
-
-        .table-inverse th,
-        .table-inverse td,
-        .table-inverse thead th {
-            border-color: #fff;
-        }
-
-        .table-inverse.table-bordered {
-            border: 0;
-        }
-
-        .table-responsive {
-            display: block;
-            width: 100%;
-            overflow-x: auto;
-            -ms-overflow-style: -ms-autohiding-scrollbar;
-        }
-
-        .table-responsive.table-bordered {
-            border: 0;
-
-        }
-
-        @page {
-            margin: 0;
-            padding: 0;
-        }
-
-        .col-5 {
-            flex: 0 0 auto;
-            width: 41.66666667%;
-        }
-
-        .col-4 {
-            flex: 0 0 auto;
-            width: 33.33333333%;
-        }
-
-        .col-6 {
-            flex: 0 0 auto;
-            width: 50%;
-        }
-
-        .row {
-            --bs-gutter-x: 1.5rem;
-            --bs-gutter-y: 0;
-            display: flex;
-            flex-wrap: wrap;
-            margin-top: calc(-1 * var(--bs-gutter-y));
-            margin-right: calc(-0.5 * var(--bs-gutter-x));
-            margin-left: calc(-0.5 * var(--bs-gutter-x));
-        }
-
-        .row>* {
-            flex-shrink: 0;
-            width: 100%;
-            max-width: 100%;
-            padding-right: calc(var(--bs-gutter-x) * 0.5);
-            padding-left: calc(var(--bs-gutter-x) * 0.5);
-            margin-top: var(--bs-gutter-y);
-        }
-
-        .bgcolor1{
-            background-color: #66c591;
-        }
-        .bgcolor{
-            background-color: red;
-        }
-    </style>
-</head>
-
-<body>
-    <div style="width: 80%; margin:auto;">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="panel panel-default invoice" id="invoice">
-                    <div class="panel-body">
-                        <div class="invoice-ribbon">
-                            @if($facture->statut=="payer")
-                                <div class="ribbon-inner bgcolor1" >Payer</div>
-                            @else
-                                <div class="ribbon-inner bgcolor" >Non Payer</div>
-                            @endif
-                        </div>
-
-                        <div class="img">
-                            <img src='{{$logo}}' width="150" height="150" />
-                        </div>
-
-
-                        <div class="mt-5 top-right">
-                            <p> <b>Date :</b> {{$facture->dateEmission}} </p>
-                        </div>
-                        <div class="facture">
-                            <p> <b>Facture numéro </b> {{$facture->nbr_facture}} </p>
-                        </div>
-                        <div class="">
-                            <p> <b>Client : </b> {{$client->prenom." ".$client->nom}} </p>
-                            <p><b>Adresse : </b> {{$client->adresse . " " . $client->codePostal. " " . $client->ville}} </p>
-                        </div>
-
-                        <div class="row table-row">
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th style="width:50%">Description</th>
-                                        <th class="text-right" style="width:15%;font-size: 10px;">Quantité</th>
-                                        <th class="text-right" style="width:15%;font-size: 10px;">Prix Unitaire</th>
-                                        <th class="text-right" style="width:15%; font-size: 10px;">Total prix</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>{{$facture->Description}}</td>
-                                        <td class="text-right">{{ $facture->quantite }}</td>
-                                        <td class="text-right">{{ $facture->prixHT }} DH</td>
-                                        <td class="text-right">{{ $facture->prixHT * $facture->quantite}} DH</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                        </div>
-
-                        <div class="row">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <td class="w-50"></td>
-                                        <th class="top-right">Montant en DH :</th>
-                                        <td class="top-left">{{ $facture->tva }} %</td>
-                                        <th class="top-right">Total Net à payer :</th>
-                                        <td class="top-left">{{ $facture->quantite * $facture->prixHT *(1+$facture->tva/100) }} DH</td>
-                                    </tr>
-                                </thead>
-                            </table>
-                            <div class="my-5 top-right">
-                                <p> <b>Signature :</b></p>
-                            </div>
-                        </div>
-
-                        <div style="margin-top: 50px;">
-                            <table class="text-muted">
-                                <tr>
-                                    <td><b> Auto Entrepreneur </b></td>
-                                    <td>: {{$user->name}}</td>
-                                    <td style="width: 50px;"></td>
-                                    <td><b> Adresse </b></td>
-                                    <td>: {{$user->adresse}}</td>
-                                </tr>
-                                <tr>
-                                    <td><b> Numéro de Téléphone </b></td>
-                                    <td>: {{$user->tel}}</td>
-                                    <td style="width: 50px;"></td>
-                                    <td><b> Email </b></td>
-                                    <td>: {{$user->email}}</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</body>
-
-</html>
-        ' ;
-
-        return $content;
-    } 
+    public function int2str($a)
+    {
+        $a=intval($a);
+    $convert = explode('.',$a);
+    if (isset($convert[1]) && $convert[1]!=''){
+    return $this->int2str($convert[0]).'DH'.' et '.$this->int2str($convert[1]).'Centimes' ;
+    }
+    if ($a<0) return 'moins '.$this->int2str(-$a);
+    if ($a<17){
+    switch ($a){
+    case 0: return 'zero';
+    case 1: return 'un';
+    case 2: return 'deux';
+    case 3: return 'trois';
+    case 4: return 'quatre';
+    case 5: return 'cinq';
+    case 6: return 'six';
+    case 7: return 'sept';
+    case 8: return 'huit';
+    case 9: return 'neuf';
+    case 10: return 'dix';
+    case 11: return 'onze';
+    case 12: return 'douze';
+    case 13: return 'treize';
+    case 14: return 'quatorze';
+    case 15: return 'quinze';
+    case 16: return 'seize';
+    }
+    } else if ($a<20){
+    return 'dix-'.$this->int2str($a-10);
+    } else if ($a<100){
+    if ($a%10==0){
+    switch ($a){
+    case 20: return 'vingt';
+    case 30: return 'trente';
+    case 40: return 'quarante';
+    case 50: return 'cinquante';
+    case 60: return 'soixante';
+    case 70: return 'soixante-dix';
+    case 80: return 'quatre-vingt';
+    case 90: return 'quatre-vingt-dix';
+    }
+    } elseif (substr($a, -1)==1){
+    if( ((int)($a/10)*10)<70 ){
+    return $this->int2str((int)($a/10)*10).'-et-un';
+    } elseif ($a==71) {
+    return 'soixante-et-onze';
+    } elseif ($a==81) {
+    return 'quatre-vingt-un';
+    } elseif ($a==91) {
+    return 'quatre-vingt-onze';
+    }
+    } elseif ($a<70){
+    return $this->int2str($a-$a%10).'-'.$this->int2str($a%10);
+    } elseif ($a<80){
+    return $this->int2str(60).'-'.$this->int2str($a%20);
+    } else{
+    return $this->int2str(80).'-'.$this->int2str($a%20);
+    }
+    } else if ($a==100){
+    return 'cent';
+    } else if ($a<200){
+    return $this->int2str(100).' '.$this->int2str($a%100);
+    } else if ($a<1000){
+    return $this->int2str((int)($a/100)).' '.$this->int2str(100).' '.$this->int2str($a%100);
+    } else if ($a==1000){
+    return 'mille';
+    } else if ($a<2000){
+    return $this->int2str(1000).' '.$this->int2str($a%1000).' ';
+    } else if ($a<1000000){
+    return $this->int2str((int)($a/1000)).' '.$this->int2str(1000).' '.$this->int2str($a%1000);
+    }
+    else if ($a==1000000){
+    return 'millions';
+    }
+    else if ($a<2000000){
+    return $this->int2str(1000000).' '.$this->int2str($a%1000000).' ';
+    }
+    else if ($a<1000000000){
+    return $this->int2str((int)($a/1000000)).' '.$this->int2str(1000000).' '.$this->int2str($a%1000000);
+    }
+    }
 }

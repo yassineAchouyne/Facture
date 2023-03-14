@@ -50,4 +50,9 @@ class Controller extends BaseController
         return redirect("/factures/$id");
     }
 
+    public function Envoyer_ClientAfacture($idc){
+        $clients = DB::table("clients")->where("id_user", Auth::user()->id)->get();
+        return view("admin.ajouterfacture", compact("clients","idc"));
+    }
+
 }

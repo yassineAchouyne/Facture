@@ -62,7 +62,7 @@
                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#popupdel">Supprimer</a>
 
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Créer une facture</a>
+                        <a class="dropdown-item" href="/facture/{{$client->id_client}}">Créer une facture</a>
                     </div>
                 </div>
             </div>

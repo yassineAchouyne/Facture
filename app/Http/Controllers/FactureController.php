@@ -27,7 +27,8 @@ class FactureController extends Controller
     public function create()
     {
         $clients = DB::table("clients")->where("id_user", Auth::user()->id)->get();
-        return view("admin.ajouterfacture", compact("clients"));
+        $idc=0;
+        return view("admin.ajouterfacture", compact("clients","idc"));
     }
 
     /**
@@ -35,6 +36,9 @@ class FactureController extends Controller
      */
     public function store(Request $request)
     {
+
+        return dd($request->all());
+
         $this->validate($request,[
             'client'=>'required',
             'dateEmission'=>'required',

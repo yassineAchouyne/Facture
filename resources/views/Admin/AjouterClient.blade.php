@@ -80,11 +80,7 @@
         <input class="form-control @error('tel') is-invalid @enderror" id="phone" value="{{old('tel')}}" type="numbre" name="tel" placeholder="(123) 456-7890" />
         <label for="phone" class="@error('tel') text-danger  @enderror">Numéro de Téléphone </label>
     </div>
-    <!-- avatar input -->
-    <div class="mb-3">
-        <label for="logo" class="ml-3 @error('logo') text-danger  @enderror">Logo de Client </label>
-        <input class="form-control @error('logo') is-invalid @enderror" id="logo" type="file" name="logo" />
-    </div>
+    
     <!-- Submit Button-->
     <div class="d-grid"><button class="btn btn-primary btn-xl" id="submitButton" type="submit">Créer le client</button></div>
 </form>

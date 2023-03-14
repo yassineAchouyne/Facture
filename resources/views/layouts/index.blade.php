@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Factur - Dashboard</title>
+    <title>Factura - Dashboard</title>
 
     <link rel="stylesheet" href="../../dist/css/bootstrap-select-country.min.css" />
 
@@ -50,7 +50,7 @@
                     <!-- <i class="fas fa-laugh-wink"></i> -->
                     <img width="50" src="../../assets/img/icon-logo.png.webp" />
                 </div>
-                <div class="sidebar-brand-text mx-3">Factur.ma</div>
+                <div class="sidebar-brand-text mx-3">Factura.ma</div>
             </a>
 
             <!-- Divider -->

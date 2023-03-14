@@ -40,7 +40,6 @@ class ClientController extends Controller
             'codePostal' => 'required',
             'ville' => 'required',
             'tel' => 'required',
-            'logo' => 'required',
         ]);
 
 
@@ -56,14 +55,14 @@ class ClientController extends Controller
         $client->website=$request->website;
         $client->tel=$request->tel;
 
-        if ($request->hasFile("logo")) {
-            $img = $request->logo;
-            $extention=$img->getClientOriginalExtension();
+        // if ($request->hasFile("logo")) {
+        //     $img = $request->logo;
+        //     $extention=$img->getClientOriginalExtension();
 
-            $name = Str::slug("Logo-". date("Y-m-d h:i:sa"), '-').'.'.$extention;
-            $img->storeAs('logo', $name, 'public');
-            $client->logo = $name;
-        }
+        //     $name = Str::slug("Logo-". date("Y-m-d h:i:sa"), '-').'.'.$extention;
+        //     $img->storeAs('logo', $name, 'public');
+        //     $client->logo = $name;
+        // }
 
         $client->id_user=Auth::user()->id;
         
@@ -113,16 +112,7 @@ class ClientController extends Controller
         $clien->pays=$request->pays;
         $clien->website=$request->website;
         $clien->tel=$request->tel;
-
-        if ($request->hasFile("logo")) {
-            $img = $request->logo;
-            $extention=$img->getClientOriginalExtension();
-
-            $name = Str::slug("Logo-". date("Y-m-d h:i:sa"), '-').'.'.$extention;
-            $img->storeAs('logo', $name, 'public');
-            $client->logo = $name;
-        }
-        
+           
         $clien->save();
         return redirect('/clients');
     }

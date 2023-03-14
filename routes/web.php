@@ -49,3 +49,9 @@ Route::get('/action', [AjaxController::class, 'action'])->name('action');
 Route::get('/statut/{id}',[Controller::class,"ChangeStatut"]);
 
 Route::resource("/form",FormJiridiqueController::class);
+
+Route::get('/facture/{idc}',[Controller::class,"Envoyer_ClientAfacture"]);
+
+Route::get("/p",function(){
+    return view('pdf');
+});
