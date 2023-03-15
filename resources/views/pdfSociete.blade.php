@@ -142,10 +142,15 @@
         .bgcolor{
             background-color: red;
         }
+        img{
+            border-radius: 5px;
+        }
     </style>
 </head>
 
 <body lang="FR" style="word-wrap: break-word" class="page">
+
+
 <div class="invoice-ribbon">
                             @if($facture->statut=="payer")
                                 <div class="ribbon-inner bgcolor1" >Payer</div>
@@ -155,7 +160,7 @@
                         </div>
     <div class="WordSection1">
         <div align="center" style="width: 100%;display: flex;justify-content: center;">
-            <img width="126" height="137" id="Image 1" src="{{$logo}}" />
+            <img width="126" height="137" id="Image 1" {{$logo}} />
         </div>
 
         <p class="MsoNormal">&nbsp;</p>
@@ -173,7 +178,10 @@
                 padding: 0cm 5.4pt 0cm 5.4pt;
               ">
                         <p class="MsoNormal" style="margin-bottom: 0cm; line-height: normal">
-                            <b><span style="font-size: 14pt;margin-left: 30px; color: black">Facture numéro</span></b><span style="font-size: 14pt; color: black"> </span><span style="font-size: 12pt; color: black">000 001</span>
+                            <b><span style="font-size: 14pt;margin-left: 30px; color: black">Facture numéro</span></b><span style="font-size: 14pt; color: black"> </span>
+                            <span style="font-size: 12pt; color: black">
+                            {{sprintf("%06d",$facture->nbr_facture)}}
+                        </span>
                         </p>
                     </td>
                 </tr>
@@ -214,7 +222,7 @@
 
         <p class="MsoNormal">&nbsp;</p>
 
-        <table class="MsoNormalTable" border="1" cellspacing="0" cellpadding="0" width="604" style="width: 453.1pt; border-collapse: collapse; border: none">
+        <table id="MsoNormalTable" border="1" cellspacing="0" cellpadding="0"  style="width: 100%; border-collapse: collapse; border: none">
             <tr>
                 <td width="206" valign="top" style="
               width: 154.55pt;
@@ -281,6 +289,14 @@
                     </p>
                 </td>
             </tr>
+            @php 
+                $qtt = json_decode($facture->quantite, true);
+                $pr = json_decode($facture->prixHT, true);
+                $desc = json_decode($facture->Description, true);
+             @endphp
+
+            @foreach($qtt as $i=>$q)
+
             <tr>
                 <td width="206" valign="top" style="
               width: 154.55pt;
@@ -290,7 +306,7 @@
             ">
                     <p class="MsoNormal" style="margin-bottom: 0cm; line-height: normal">
                         &nbsp;
-                        {{$facture->Description}}
+                        {{$desc[$i]}}
                     </p>
                 </td>
                 <td width="130" valign="top" style="
@@ -303,7 +319,7 @@
             ">
                     <p class="MsoNormal" style="margin-bottom: 0cm; line-height: normal">
                         &nbsp;
-                        {{$facture->quantite}}
+                        {{$q}}
                     </p>
                 </td>
                 <td width="130" valign="top" style="
@@ -316,7 +332,7 @@
             ">
                     <p class="MsoNormal" style="margin-bottom: 0cm; line-height: normal">
                         &nbsp;
-                        {{$facture->prixHT}}
+                        {{$pr[$i]}} DH
                     </p>
                 </td>
                 <td width="138" valign="top" style="
@@ -328,10 +344,11 @@
               padding: 0cm 5.4pt 0cm 5.4pt;
             ">
                     <p class="MsoNormal" style="margin-bottom: 0cm; line-height: normal">
-                    {{$facture->quantite*$facture->prixHT}}
+                    {{$q * $pr[$i]}} DH
                     </p>
                 </td>
             </tr>
+            @endforeach
         </table>
 
         <p class="MsoNormal">&nbsp;</p>
@@ -351,7 +368,7 @@
               height: 14.85pt;
             ">
                     <p class="MsoNormal" style="margin-bottom: 0cm; line-height: normal">
-                        <b>Montant en  {{$facture->quantite* $facture->prixHT*(1+$facture->tva/100)-($facture->quantite*$facture->prixHT)}} DH</b>
+                        <b>Montant en derhame</b><br>(Hors champ de la TVA)
                     </p>
                 </td>
                 <td width="129" valign="top" style="
@@ -377,7 +394,7 @@
               height: 14.85pt;
             ">
                     <p class="MsoNormal" style="margin-bottom: 0cm; line-height: normal">
-                        <b>{{$facture->quantite* $facture->prixHT*(1+$facture->tva/100)}} DH</b>
+                        <b>{{$total}} DH</b>
                     </p>
                 </td>
             </tr>

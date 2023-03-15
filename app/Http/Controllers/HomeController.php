@@ -26,12 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->societe){
-            $users = DB::table('form_jiridiques')->where('id',Auth::user()->id)->get();
-            
-            if(count($users)==0){
-                return view("admin.AjouterSociete");
-            }
+        if(Auth::user()->societe=null){
+            return view("admin.AjouterSociete");
         }
         return redirect('/');
     }

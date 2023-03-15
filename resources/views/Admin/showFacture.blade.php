@@ -101,22 +101,27 @@
                 <td>Description</td>
                 <td>Prix unitaire HT</td>
                 <td>Quantité</td>
-                <td>TVA</td>
                 <td>Total HT</td>
             </tr>
+             @php 
+                $qtt = json_decode($facture->quantite, true);
+                $pr = json_decode($facture->prixHT, true);
+                $desc = json_decode($facture->Description, true);
+             @endphp
+
+             @foreach($qtt as $i=>$q)
             <tr>
-                <td>{{$facture->Description}}</td>
-                <td>{{$facture->prixHT}} DH</td>
-                <td>{{$facture->quantite}}</td>
-                <td>{{$facture->tva}} %</td>
-                <td>{{$facture->quantite*$facture->prixHT}} DH</td>
+                <td>{{$desc[$i]}}</td>
+                <td>{{$pr[$i]}} DH</td>
+                <td>{{ $q }}</td>
+                <td>{{$q * $pr[$i]}} DH</td>
             </tr>
-            <tr>
+            @endforeach
+            <tr class="  ">
                 <td></td>
                 <td></td>
-                <td></td>
-                <td class="fw-bold">Total :</td>
-                <td class="fw-bold">{{ $facture->quantite* $facture->prixHT*(1+$facture->tva/100) }} DH</td>
+                <td class="bg-secondary fw-bold">Total :</td>
+                <td class="bg-secondary fw-bold">{{ $function->totalHT($facture) }} DH</td>
             </tr>
 
         </table>

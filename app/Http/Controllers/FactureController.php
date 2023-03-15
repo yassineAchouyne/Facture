@@ -19,9 +19,12 @@ class FactureController extends Controller
     {
         $factures = DB::table("factures")->where("id_user", Auth::user()->id)->get();
         $function= $this;
+        
 
         return view("admin.facture", compact("factures","function"));
     }
+
+
     public function totalHT($f){
         $qtt = json_decode($f->quantite, true);
         $pr = json_decode($f->prixHT, true);
@@ -31,6 +34,8 @@ class FactureController extends Controller
         }
         return $total;
     }
+
+
     /**
      * Show the form for creating a new resource.
      */
@@ -46,8 +51,6 @@ class FactureController extends Controller
      */
     public function store(Request $request)
     {
-
-        // return json_encode($request->quantite,JSON_FORCE_OBJECT);
 
         $this->validate($request, [
             'client' => 'required',
@@ -82,7 +85,8 @@ class FactureController extends Controller
     public function show(Facture $facture)
     {
         $client = Client::find($facture->id_client);
-        return view("admin.showFacture", compact("facture", "client"));
+        $function= $this;
+        return view("admin.showFacture", compact("facture", "client","function"));
     }
 
     /**

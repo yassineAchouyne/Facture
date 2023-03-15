@@ -6,28 +6,42 @@ use App\Models\Facture;
 use App\Models\Form_jiridique;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use PDF;
 
 class PdfController extends Controller
 {
+    public function totalHT($f){
+        $qtt = json_decode($f->quantite, true);
+        $pr = json_decode($f->prixHT, true);
+        $total = 0;
+        foreach ($qtt as $i=>$q) {
+            $total = $total + $q * $pr[$i];
+        }
+        return $total;
+    }
+
+
     public function generatePDF($id)
 
     {
         $user = auth()->user();
         $facture = Facture::find($id);
         $client = $facture->client;
-        $total=$facture->quantite* $facture->prixHT*(1+$facture->tva/100);
+        $total = $this->totalHT($facture) ;
         $societe= Form_jiridique::find($user->id) ;
         $data = [
             'facture' => $facture,
             'client' => $client,
             'user' => $user,
-            'logo'=> asset("/storage/logo/".$client->logo),
+            //'logo'=> $user->societe=null ?? 'src="../../storage/logo/'.$societe->logo .'"',
             'int2str' =>ucfirst($this->int2str($total)),
             'societe' => $societe,
+            'total' => $total,
             
         ];
+        // return $data['logo'];
         
         if($user->societe){
             $pdf = PDF::loadView('pdfSociete', $data);
@@ -35,6 +49,7 @@ class PdfController extends Controller
 
         
         return $pdf->stream($client->prenom.$client->nom.$facture->id_facture.'.pdf');
+       
     }
 
     public function int2str($a)

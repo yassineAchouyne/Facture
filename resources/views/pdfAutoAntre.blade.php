@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Document</title>
     <style>
         .page {
@@ -281,6 +282,14 @@
                     </p>
                 </td>
             </tr>
+
+            @php 
+                $qtt = json_decode($facture->quantite, true);
+                $pr = json_decode($facture->prixHT, true);
+                $desc = json_decode($facture->Description, true);
+             @endphp
+
+            @foreach($qtt as $i=>$q)
             <tr>
                 <td width="206" valign="top" style="
               width: 154.55pt;
@@ -290,7 +299,7 @@
             ">
                     <p class="MsoNormal" style="margin-bottom: 0cm; line-height: normal">
                         &nbsp;
-                        {{$facture->Description}}
+                        {{$desc[$i]}}
                     </p>
                 </td>
                 <td width="130" valign="top" style="
@@ -303,7 +312,7 @@
             ">
                     <p class="MsoNormal" style="margin-bottom: 0cm; line-height: normal">
                         &nbsp;
-                        {{$facture->quantite}}
+                        {{$q}}
                     </p>
                 </td>
                 <td width="130" valign="top" style="
@@ -316,7 +325,7 @@
             ">
                     <p class="MsoNormal" style="margin-bottom: 0cm; line-height: normal">
                         &nbsp;
-                        {{$facture->prixHT}}
+                        {{$pr[$i]}} DH
                     </p>
                 </td>
                 <td width="138" valign="top" style="
@@ -328,16 +337,17 @@
               padding: 0cm 5.4pt 0cm 5.4pt;
             ">
                     <p class="MsoNormal" style="margin-bottom: 0cm; line-height: normal">
-                    {{$facture->quantite*$facture->prixHT}}
+                    {{$q * $pr[$i]}} DH
                     </p>
                 </td>
             </tr>
+            @endforeach
         </table>
 
         <p class="MsoNormal">&nbsp;</p>
 
-        <table class="MsoNormalTable" border="1" cellspacing="0" cellpadding="0" width="565" style="
-          width: 423.6pt;
+        <table class="MsoNormalTable" border="1" cellspacing="0" cellpadding="0" style="
+          width: 100%;
           margin-left: 29.75pt;
           border-collapse: collapse;
           border: none;
@@ -351,7 +361,7 @@
               height: 14.85pt;
             ">
                     <p class="MsoNormal" style="margin-bottom: 0cm; line-height: normal">
-                        <b>Montant en  {{$facture->quantite* $facture->prixHT*(1+$facture->tva/100)-($facture->quantite*$facture->prixHT)}} DH</b>
+                        <b>Montant DH</b>
                     </p>
                 </td>
                 <td width="129" valign="top" style="
@@ -377,7 +387,7 @@
               height: 14.85pt;
             ">
                     <p class="MsoNormal" style="margin-bottom: 0cm; line-height: normal">
-                        <b>{{$facture->quantite* $facture->prixHT*(1+$facture->tva/100)}} DH</b>
+                        <b>{{$total}} DH</b>
                     </p>
                 </td>
             </tr>
@@ -426,7 +436,11 @@
     <div>
         <hr>
         <div id="ftn1" style="text-align:center" >
-        
+        <div id="ftn1" style="text-align:center" >
+            <p> <b> Auto Entrepreneur :</b>{{$user->name}} <b> Adresse :</b>{{$user->adresse}}</p>
+            <p><b>MAIL</b>  {{$user->email}}</p>
+            <p><b>Numéro de Téléphone</b> {{$user->tel}}</p>
+        </div>
         </div>
     </div>
 </body>
