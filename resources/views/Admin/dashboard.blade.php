@@ -1,10 +1,11 @@
 @extends('layouts.index')
 
+
 @section('content')
 
 
 
-<div class="container-fluid">
+<div class="container-fluid" id="load">
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -75,7 +76,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
-                                Total TVA</div>
+                                Total CHIFFRE D'AFFAIRES</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{$tva}} DH</div>
                         </div>
                         <div class="col-auto">
@@ -96,7 +97,7 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary"  >Les Facture <span id="nom_records" ></span> (<span id="total_records"></span>) </h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Les Facture <span id="nom_records"></span> (<span id="total_records"></span>) </h6>
                     <div class="dropdown no-arrow">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -111,20 +112,20 @@
                             <label class="dropdown-item">
                                 <input style="display: none;" id="search" name="search" type="radio" value="perimes" /> perimes
                             </label>
-                            <a  href="/factures" class="dropdown-item">
-                                 touts
+                            <a href="/factures" class="dropdown-item">
+                                touts
                             </a>
                         </div>
                     </div>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                        <div class="table-responsive" style="height: 323px;">
-                            <table class="table table-hover">
-                                <tbody></tbody>
-                            </table>
-                            <span id="page_records" ></span>
-                        </div>
+                    <div class="table-responsive" style="height: 323px;">
+                        <table class="table table-hover">
+                            <tbody></tbody>
+                        </table>
+                        <span id="page_records"></span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -175,7 +176,8 @@
 
 </div>
 <!-- End of Page Wrapper -->
-
+<input type="hidden" id="Fpayer" value="{{$Fpayer}}"/>
+<input type="hidden" id="Fnonpayer" value="{{$Fnonpayer}}"/>
 @endsection
 
 @section('chart')
@@ -204,7 +206,6 @@
             var query = $(this).val();
             fetch_facture_data(query);
         });
-        
     });
 </script>
 <script>
@@ -212,8 +213,8 @@
     Chart.defaults.global.defaultFontColor = '#858796';
 
     // Pie Chart Example
-    var Fpayer = {{$Fpayer}};
-    var Fnonpayer = {{$Fnonpayer}};
+    var Fpayer = document.getElementById('Fpayer').value
+    var Fnonpayer =  document.getElementById('Fnonpayer').value
     var ctx = document.getElementById("myPieChart");
     var myPieChart = new Chart(ctx, {
         type: 'doughnut',

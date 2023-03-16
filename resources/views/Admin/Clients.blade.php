@@ -99,5 +99,8 @@
         </div>
     </div>
     @endforeach
+    <div class=" d-flex justify-content-center">
+        {{$clients->links("pagination")}}
+    </div>
 </section>
 @endsection

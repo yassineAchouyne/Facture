@@ -15,7 +15,7 @@ class ClientController extends Controller
      */
     public function index()
     {
-        $clients=DB::table("clients")->where("id_user",Auth::user()->id)->get() ;
+        $clients=DB::table("clients")->where("id_user",Auth::user()->id)->paginate(16) ;
         return view('admin.clients',compact('clients'));
     }
 
@@ -83,6 +83,7 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
+        
         return view("admin.modifierClient",compact("client"));
     }
 

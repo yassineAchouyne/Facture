@@ -61,9 +61,9 @@
                         <a class="fs-5 email_link" href="/factures/{{$facture->id_facture}}">F{{ $facture->nbr_facture }}</a> <span class="ml-3 text-success fs-6">Finalisée</span>
                         @endif
                     </a><br>
-                    @php($client = DB::table('clients')->where('id_client',$facture->id_client)->get())
-                    <a href="/clients/{{$client[0]->id_client}}" class="link h6 mt-1 text-primary">
-                        {{ $client[0]->prenom }} {{ $client[0]->nom }}
+                    @php($client = DB::table('clients')->where('id_client',$facture->id_client)->first())
+                    <a href="/clients/{{$client->id_client}}" class="link h6 mt-1 text-primary">
+                        {{ $client->prenom }} {{ $client->nom }}
                     </a>
                 </div>
 
@@ -84,7 +84,7 @@
             <div class="card-body">
                 <div class="pb-2">
                     <i class="bi bi-cash text-secondary mr-2 fs-4"></i>
-                    <span class="fs-4 text-secondary ">{{ $function->totalHT($facture) }} DH</span>
+                    <span class="fs-4 text-secondary ">{{ auth()->user()->totalHT($facture) }} DH</span>
                 </div>
                 <div class=" pb-2">
                     <i class="bi bi-alarm-fill text-secondary mr-2 fs-6"></i>

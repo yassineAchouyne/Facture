@@ -50,7 +50,8 @@ class ProfileController extends Controller
     public function edit(string $id)
     {
         $user = Auth::user();
-        return view("admin.modifierUser", compact("user"));
+        $societe = Form_jiridique::find(Auth::user()->id);
+        return view("admin.modifierUser", compact("user","societe"));
     }
 
     /**
@@ -58,7 +59,9 @@ class ProfileController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        
         $user = User::find($id);
+        $autoEntrep = Form_jiridique::find($id);
 
         if ($request->hasFile("avatar")) {
             $img = $request->avatar;
@@ -73,6 +76,16 @@ class ProfileController extends Controller
         $user->tel = $request->tel;
         $user->adresse = $request->adresse;
         $user->update();
+
+        $autoEntrep->codePostal = $request->codePostal;
+        $autoEntrep->ville = $request->ville;
+        $autoEntrep->pays = $request->pays;
+        $autoEntrep->cnie = $request->cnie;
+        $autoEntrep->ICF = $request->ICF;
+        $autoEntrep->IF = $request->IF;
+        $autoEntrep->taxe = $request->taxe;
+        $autoEntrep->update();
+
         return redirect("/profile");
     }
 

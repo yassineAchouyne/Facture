@@ -18,18 +18,18 @@ class FactureController extends Controller
     public function index()
     {
         $factures = DB::table("factures")->where("id_user", Auth::user()->id)->get();
-        $function= $this;
-        
 
-        return view("admin.facture", compact("factures","function"));
+        return view("admin.facture", compact("factures"));
+       
     }
 
 
-    public function totalHT($f){
+    public function totalHT($f)
+    {
         $qtt = json_decode($f->quantite, true);
         $pr = json_decode($f->prixHT, true);
         $total = 0;
-        foreach ($qtt as $i=>$q) {
+        foreach ($qtt as $i => $q) {
             $total = $total + $q * $pr[$i];
         }
         return $total;
@@ -85,8 +85,8 @@ class FactureController extends Controller
     public function show(Facture $facture)
     {
         $client = Client::find($facture->id_client);
-        $function= $this;
-        return view("admin.showFacture", compact("facture", "client","function"));
+        $function = $this;
+        return view("admin.showFacture", compact("facture", "client", "function"));
     }
 
     /**

@@ -45,11 +45,25 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function client(){
-        return $this->hasMany(Client::class,'id_client');
+    public function client()
+    {
+        return $this->hasMany(Client::class, 'id_client');
     }
 
-    public function factur(){
-        return $this->belongsTo(User::class,'id_user');
+    public function factur()
+    {
+        return $this->belongsTo(User::class, 'id_user');
+    }
+
+    public function totalHT($f)
+    {
+        $qtt = json_decode($f->quantite, true);
+        $pr = json_decode($f->prixHT, true);
+        
+        $total = 0;
+        foreach ($qtt as $i => $q) {
+            $total = $total + $q * $pr[$i];
+        }
+        return $total;
     }
 }

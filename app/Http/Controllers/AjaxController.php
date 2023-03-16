@@ -3,45 +3,53 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class AjaxController extends Controller
 {
     function action(Request $request)
     {
-        if($request->ajax())
-        {
+        if ($request->ajax()) {
             $output = '';
             $query = $request->get('query');
-            if($query == 'nonpayer' || $query=="payer") {
-                $data = DB::table('factures')
-                    ->where('id_user',auth()->user()->id)
-                    ->where('statut',$query)
-                    ->orderBy('id_facture','desc')
-                    ->get(); 
-                    $nom=$query;
-            }elseif($query="perimes"){
-                $data = DB::table('factures')
-                ->where('id_user',auth()->user()->id)
-                ->where('dateFin',"<",date("Y-m-d"))
-                ->orderBy('id_facture', 'desc')
-                ->get(); 
-                $nom="périmés";
-            }else {
+
+            if ($query == "payer") {
+                $val = DB::table('factures')
+                        ->where('id_user', auth()->user()->id)
+                        ->where('statut', 'payer')
+                        ->orderBy('id_facture', 'desc')
+                        ->get();
+                $nom = $query;
+            }elseif ($query == "nonpayer") {
+                $val = DB::table('factures')
+                    ->where('id_user', auth()->user()->id)
+                    ->where('statut', 'nonpayer')
+                    ->orderBy('id_facture', 'desc')
+                    ->get();
+                $nom = $query;
+            } elseif ($query == "perimes") {
+                $val = DB::table('factures')
+                    ->where('id_user', auth()->user()->id)
+                    ->where('dateFin', "<", date("Y-m-d"))
+                    ->orderBy('id_facture', 'desc')
+                    ->get();
+                $nom = "périmés";
+            } else{
                 $data = DB::table('factures')
                     ->orderBy('id_facture', 'desc')
                     ->get();
             }
-             
-            $total_row = $data->count();
-            if($total_row > 0){
-                foreach($data as $row){
+
+            $total_row = $val->count();
+            if ($total_row > 0) {
+                foreach ($val as $row) {
                     $output .= '
                     <tr>
-                    <td>F'.$row->id_facture.'</td>
-                    <td>'.$row->modePayment.'</td>
-                    <td>'. $row->quantite* $row->prixHT*(1+$row->tva/100) .' DH</td>
-                    <td>'.$row->dateFin.'</td>
+                    <td>F' . $row->id_facture . '</td>
+                    <td>' . $row->modePayment . '</td>
+                    <td>' . $this->totalHT($row). ' DH</td>
+                    <td>' . $row->dateFin . '</td>
                     </tr>
                     ';
                 }
@@ -59,5 +67,17 @@ class AjaxController extends Controller
             );
             echo json_encode($data);
         }
+    }
+
+    public function totalHT($f)
+    {
+        $qtt = json_decode($f->quantite, true);
+        $pr = json_decode($f->prixHT, true);
+        
+        $total = 0;
+        foreach ($qtt as $i => $q) {
+            $total = $total + $q * $pr[$i];
+        }
+        return $total;
     }
 }

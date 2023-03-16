@@ -11,7 +11,7 @@
         .page {
             max-width: 800px;
             margin: 10px auto;
-            padding: 10px;
+            padding: 50px;
             padding-top: 0;
             font-size: 16px;
             line-height: 24px;
@@ -134,7 +134,7 @@
             font-size: 15px;
             color: #fff;
             display: flex;
-            margin-left: 48%;
+            margin-left: 53%;
             width: 100%;
         }
         .bgcolor1{
@@ -142,6 +142,14 @@
         }
         .bgcolor{
             background-color: red;
+        }
+        .footer{
+            position: fixed;
+            width: 88%;
+            bottom: 0;
+        }
+        pre{
+            color: black;
         }
     </style>
 </head>
@@ -433,14 +441,14 @@
         <p class="MsoNormal">&nbsp;</p>
     </div>
 
-    <div>
+    <div class="footer">
         <hr>
-        <div id="ftn1" style="text-align:center" >
-        <div id="ftn1" style="text-align:center" >
-            <p> <b> Auto Entrepreneur :</b>{{$user->name}} <b> Adresse :</b>{{$user->adresse}}</p>
-            <p><b>MAIL</b>  {{$user->email}}</p>
-            <p><b>Numéro de Téléphone</b> {{$user->tel}}</p>
-        </div>
+        <div id="ftn1"  >
+            <pre>  Auto Entrepreneur :{{$user->name}}      CNIE : {{$societe->cnie}}</pre>
+            <pre>  Adresse :{{$user->adresse}}, {{$societe->codePostal}}, {{$societe->ville}}-{{$societe->pays}} </pre>
+            <pre>  N°d’inscription au registre national de l’auto-entrepreneur: {{$societe->ICF}}</pre>
+            <pre>  IF :{{$societe->IF}}              Taxe professionnelle N°: {{$societe->taxe}}</pre>
+            <pre>  TEL :{{$user->tel}}      MAIL: {{$user->email}}</pre>
         </div>
     </div>
 </body>

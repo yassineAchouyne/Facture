@@ -112,6 +112,78 @@
                                 <input class="text-muted mb-0 border-0  form-control " name="adresse" value="{{$user->adresse}}" />
                             </div>
                         </div>
+
+                        @if(!$user->societe)
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Code Postal</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <input class="text-muted mb-0 border-0  form-control " name="codePostal" value="{{$societe->codePostal}}" />
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Ville</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <input class="text-muted mb-0 border-0  form-control " name="ville" value="{{$societe->ville}}" />
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Pays</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <input class="text-muted mb-0 border-0  form-control " name="pays" value="{{$societe->pays}}" />
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">CNIE</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <input class="text-muted mb-0 border-0  form-control " name="cnie" value="{{$societe->cnie}}" />
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">ICE</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <input class="text-muted mb-0 border-0  form-control " name="ICF" value="{{$societe->ICF}}" />
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">IF</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <input class="text-muted mb-0 border-0  form-control " name="IF" value="{{$societe->IF}}" />
+                            </div>
+                        </div>
+
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0">Taxe</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <input class="text-muted mb-0 border-0  form-control " name="taxe" value="{{$societe->taxe}}" />
+                            </div>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

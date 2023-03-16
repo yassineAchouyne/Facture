@@ -26,8 +26,10 @@ class Controller extends BaseController
             $Fpayer =count( $facture->where("statut","payer"));
             $Fnonpayer =count( $facture->where("statut","nonpayer"));
             foreach ($chiffreAfire as $chiffre){
-                $total = $total + $chiffre->quantite * $chiffre->prixHT ;
-                $tva = $tva + ($chiffre->quantite * $chiffre->prixHT * (1+$chiffre->tva/100)) - ($chiffre->quantite * $chiffre->prixHT);
+                $total =$total+$this->totalHT($chiffre) ;
+            }
+            foreach ($facture as $chiffre){
+                $tva =$total+$this->totalHT($chiffre) ;
             }
 
             $data=[
@@ -41,6 +43,17 @@ class Controller extends BaseController
             return view('Admin.dashboard',$data);
         }
 
+    }
+    public function totalHT($f)
+    {
+        $qtt = json_decode($f->quantite, true);
+        $pr = json_decode($f->prixHT, true);
+        
+        $total = 0;
+        foreach ($qtt as $i => $q) {
+            $total = $total + $q * $pr[$i];
+        }
+        return $total;
     }
 
     public function ChangeStatut ($id){
