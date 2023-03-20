@@ -26,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->societe=null){
+        if(Auth::user()->societe==null){
             return view("admin.AjouterSociete");
         }
         return redirect('/');

@@ -51,7 +51,7 @@ class FactureController extends Controller
      */
     public function store(Request $request)
     {
-
+        
         $this->validate($request, [
             'client' => 'required',
             'dateEmission' => 'required',
@@ -103,17 +103,17 @@ class FactureController extends Controller
      */
     public function update(Request $request, Facture $facture)
     {
+        
         $factur = Facture::find($facture->id_facture);
-        $factur->id_client = $request->client;
+        $factur->id_client = $request->client;        
         $factur->dateEmission = $request->dateEmission;
         $factur->dateFin = $request->dateFin;
-        $factur->quantite = $request->quantite;
-        $factur->prixHT = $request->prixHT;
-        $factur->tva = $request->tva;
-        $factur->Description = $request->description;
+        $factur->quantite = json_encode($request->quantite, JSON_FORCE_OBJECT);
+        $factur->prixHT = json_encode($request->prixHT, JSON_FORCE_OBJECT);
+        $factur->Description = json_encode($request->description, JSON_FORCE_OBJECT);
         $factur->modePayment = $request->modePayment;
 
-        $factur->save();
+        $factur->update();
         return redirect("/factures");
     }
 

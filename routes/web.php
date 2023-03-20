@@ -3,6 +3,7 @@
 use App\Http\Controllers\AjaxController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\FactureController;
 use App\Http\Controllers\FormJiridiqueController;
 use App\Http\Controllers\PdfController;
@@ -52,6 +53,13 @@ Route::resource("/form",FormJiridiqueController::class);
 
 Route::get('/facture/{idc}',[Controller::class,"Envoyer_ClientAfacture"]);
 
-Route::get("/p",function(){
-    return view('pdf');
+Route::get('/search_facture',[Controller::class,"search_facture"]);
+
+Route::get('/send/{id}', [EmailController::class, 'index']);
+
+Route::get('/test',function(){
+    $pdf = new Spatie\PdfToImage\Pdf("assets/img/pdf.pdf");
+    return $pdf->getNumberOfPages();
 });
+
+

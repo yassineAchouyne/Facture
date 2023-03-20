@@ -37,7 +37,7 @@
     @yield('style')
 </head>
 
-<body id="page-top" @yield('load') >
+<body id="page-top" @yield('load')  >
     <!-- Page Wrapper -->
     <div id="wrapper">
 

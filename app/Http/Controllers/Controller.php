@@ -6,6 +6,7 @@ use App\Models\Client;
 use App\Models\Facture;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -66,6 +67,15 @@ class Controller extends BaseController
     public function Envoyer_ClientAfacture($idc){
         $clients = DB::table("clients")->where("id_user", Auth::user()->id)->get();
         return view("admin.ajouterfacture", compact("clients","idc"));
+    }
+
+    public function search_facture(Request $request){
+        
+        $factures=DB::table('factures')
+                    ->where('id_user', auth()->user()->id)
+                    ->where('nbr_facture','like','%'.$request->search.'%')
+                    ->get();
+        return view("admin.facture", compact("factures"));
     }
 
 }

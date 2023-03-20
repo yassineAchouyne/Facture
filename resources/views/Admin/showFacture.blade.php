@@ -7,6 +7,12 @@
 @section('action')
 
 <li class="dropdown no-arrow mt-4 mr-3 ml-3">
+    <a class="dropdown-toggle" href="/send/{{$facture->id_facture}}" role="button">
+        <i class="bi bi-envelope-fill fa-md fa-fw text-gray-400"></i>
+    </a>
+</li>
+
+<li class="dropdown no-arrow mt-4 mr-3 ml-3">
     <a class="dropdown-toggle" href="/pdf/{{$facture->id_facture}}" role="button">
         <i class="bi bi-file-earmark-arrow-down-fill fa-md fa-fw text-gray-400"></i>
     </a>
@@ -20,7 +26,7 @@
         <a class="dropdown-item" href="/factures/{{ $facture->id_facture}}/edit">Modifier</a>
         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#popupdel">Supprimer</a>
         @if($facture->statut!="payer")
-            <a class="dropdown-item" href="/statut/{{$facture->id_facture}}" >Facture est Payer</a>
+        <a class="dropdown-item" href="/statut/{{$facture->id_facture}}">Facture est Payer</a>
         @endif
     </div>
     <!-- pupup supprimer -->
@@ -48,14 +54,19 @@
 
 @section('content')
 <section class="m-1">
+    @if (session('status'))
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+    @endif
     <div class="m-2 row">
         <h5 class="pb-2">Informations</h5>
         <div class="m-2 border-bottom col-lg-6 pb-2 row">
             <span class="text-secondary col">Statut :</span>
             @if($facture->statut=="payer")
-                <span class="ml-5 col badge badge-success">{{$facture->statut}}</span>
+            <span class="ml-5 col badge badge-success">{{$facture->statut}}</span>
             @else
-                <span class="ml-5 col badge badge-danger">{{$facture->statut}}</span>
+            <span class="ml-5 col badge badge-danger">{{$facture->statut}}</span>
             @endif
         </div>
         <div class="m-2 border-bottom col-lg-6 pb-2 row">
@@ -103,13 +114,13 @@
                 <td>Quantité</td>
                 <td>Total HT</td>
             </tr>
-             @php 
-                $qtt = json_decode($facture->quantite, true);
-                $pr = json_decode($facture->prixHT, true);
-                $desc = json_decode($facture->Description, true);
-             @endphp
+            @php
+            $qtt = json_decode($facture->quantite, true);
+            $pr = json_decode($facture->prixHT, true);
+            $desc = json_decode($facture->Description, true);
+            @endphp
 
-             @foreach($qtt as $i=>$q)
+            @foreach($qtt as $i=>$q)
             <tr>
                 <td>{{$desc[$i]}}</td>
                 <td>{{$pr[$i]}} DH</td>

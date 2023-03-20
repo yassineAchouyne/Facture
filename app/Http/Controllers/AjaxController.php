@@ -10,7 +10,6 @@ class AjaxController extends Controller
 {
     function action(Request $request)
     {
-        if ($request->ajax()) {
             $output = '';
             $query = $request->get('query');
 
@@ -36,9 +35,11 @@ class AjaxController extends Controller
                     ->get();
                 $nom = "périmés";
             } else{
-                $data = DB::table('factures')
+                $val = DB::table('factures')
+                    ->where('id_user', auth()->user()->id)
                     ->orderBy('id_facture', 'desc')
                     ->get();
+                    $nom = "";
             }
 
             $total_row = $val->count();
@@ -66,7 +67,6 @@ class AjaxController extends Controller
                 'nom_data'  => $nom,
             );
             echo json_encode($data);
-        }
     }
 
     public function totalHT($f)
