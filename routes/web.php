@@ -11,6 +11,8 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,7 +24,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',[Controller::class,"dashboard"]);
+Route::get('/', [Controller::class, "dashboard"]);
 
 Auth::routes();
 
@@ -37,29 +39,42 @@ Route::get("redirect/{provider}", "App\Http\Controllers\SocialiteController@redi
 Route::get("callback/{provider}", "App\Http\Controllers\SocialiteController@callback")->name('socialite.callback');
 
 
-Route::resource("clients",ClientController::class);
+Route::resource("clients", ClientController::class);
 
-Route::resource("factures",FactureController::class);
+Route::resource("factures", FactureController::class);
 
-Route::resource('/profile',ProfileController::class);
+Route::resource('/profile', ProfileController::class);
 
-Route::get('/pdf/{id_facture}',[PdfController::class,"generatePDF"]);
+Route::get('/pdf/{id_facture}', [PdfController::class, "generatePDF"]);
 
 Route::get('/action', [AjaxController::class, 'action'])->name('action');
 
-Route::get('/statut/{id}',[Controller::class,"ChangeStatut"]);
+Route::get('/statut/{id}', [Controller::class, "ChangeStatut"]);
 
-Route::resource("/form",FormJiridiqueController::class);
+Route::resource("/form", FormJiridiqueController::class);
 
-Route::get('/facture/{idc}',[Controller::class,"Envoyer_ClientAfacture"]);
+Route::get('/facture/{idc}', [Controller::class, "Envoyer_ClientAfacture"]);
 
-Route::get('/search_facture',[Controller::class,"search_facture"]);
+Route::get('/search_facture', [Controller::class, "search_facture"]);
 
 Route::get('/send/{id}', [EmailController::class, 'index']);
 
-Route::get('/test',function(){
-    $pdf = new Spatie\PdfToImage\Pdf("assets/img/pdf.pdf");
-    return $pdf->getNumberOfPages();
+Route::get('/test', function () {
+// try{
+
+
+    $url = public_path("pdf.pdf");
+   
+    $im = new \Imagick();
+    $im->readImage($url);
+// }catch(\Exception $err){
+//     return $err->getMessage();
+// }
+
+    // $imagick->setImageIndex(0);
+    // $imagick->resizeImage(400, 400, Imagick::FILTER_LANCZOS, 1, 1);
+    // $imagick->setImageFormat('png');
+    // $file_name =  '_' . time() . ".png";
+    // $imagick->writeImage(public_path("storage/" . 'readingfile/images' . "/" . $file_name));
+    // $pathimage = 'readingfile/images/' . $file_name;
 });
-
-

@@ -8,6 +8,7 @@
         "php": "^8.1",
         "barryvdh/laravel-dompdf": "^2.0",
         "barryvdh/laravel-snappy": "^1.0",
+        "calcinai/php-imagick": "^0.1.2",
         "dompdf/dompdf": "^2.0",
         "guzzlehttp/guzzle": "^7.2",
         "h4cc/wkhtmltopdf-amd64": "0.12.x",
@@ -16,7 +17,7 @@
         "laravel/socialite": "^5.6",
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.2",
-        "spatie/pdf-to-image": "^1.2",
+        "spatie/pdf-to-image": "^2.2",
         "wemersonjanuario/wkhtmltopdf-windows": "0.12.2.3"
     },
     "require-dev": {
