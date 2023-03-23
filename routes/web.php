@@ -13,17 +13,6 @@ use Illuminate\Support\Facades\Route;
 
 
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
 Route::get('/', [Controller::class, "dashboard"]);
 
 Auth::routes();
@@ -32,12 +21,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get("login-register", "App\Http\Controllers\SocialiteController@loginRegister");
 
-// La redirection vers le provider
+
 Route::get("redirect/{provider}", "App\Http\Controllers\SocialiteController@redirect")->name('socialite.redirect');
 
-// Le callback du provider
 Route::get("callback/{provider}", "App\Http\Controllers\SocialiteController@callback")->name('socialite.callback');
-
 
 Route::resource("clients", ClientController::class);
 
@@ -59,22 +46,4 @@ Route::get('/search_facture', [Controller::class, "search_facture"]);
 
 Route::get('/send/{id}', [EmailController::class, 'index']);
 
-Route::get('/test', function () {
-// try{
-
-
-    $url = public_path("pdf.pdf");
-   
-    $im = new \Imagick();
-    $im->readImage($url);
-// }catch(\Exception $err){
-//     return $err->getMessage();
-// }
-
-    // $imagick->setImageIndex(0);
-    // $imagick->resizeImage(400, 400, Imagick::FILTER_LANCZOS, 1, 1);
-    // $imagick->setImageFormat('png');
-    // $file_name =  '_' . time() . ".png";
-    // $imagick->writeImage(public_path("storage/" . 'readingfile/images' . "/" . $file_name));
-    // $pathimage = 'readingfile/images/' . $file_name;
-});
+Route::get('/test',[FactureController::class,"Recherche"]);

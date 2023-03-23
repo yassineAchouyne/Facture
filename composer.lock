@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "844f20bc3ebc664af2b70589ed7e45a1",
+    "content-hash": "2224f2cc2bd98f2a42225c6039bf1b46",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -256,6 +256,58 @@
                 "source": "https://github.com/calcinai/php-imagick/tree/master"
             },
             "time": "2016-12-22T15:09:47+00:00"
+        },
+        {
+            "name": "convertapi/convertapi-php",
+            "version": "v1.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ConvertAPI/convertapi-php.git",
+                "reference": "c17fb7b277da956f5335c84805f92a8389298e5f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ConvertAPI/convertapi-php/zipball/c17fb7b277da956f5335c84805f92a8389298e5f",
+                "reference": "c17fb7b277da956f5335c84805f92a8389298e5f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ConvertApi\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "ConvertAPI and contributors",
+                    "homepage": "https://github.com/ConvertAPI/convertapi-php/graphs/contributors"
+                }
+            ],
+            "description": "Convert API PHP Client",
+            "homepage": "https://github.com/ConvertAPI/convertapi-php",
+            "keywords": [
+                "api",
+                "client",
+                "conversion",
+                "convert"
+            ],
+            "support": {
+                "issues": "https://github.com/ConvertAPI/convertapi-php/issues",
+                "source": "https://github.com/ConvertAPI/convertapi-php/tree/v1.6.1"
+            },
+            "time": "2022-09-18T20:50:29+00:00"
         },
         {
             "name": "dflydev/dot-access-data",

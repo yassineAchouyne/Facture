@@ -15,12 +15,29 @@ class FactureController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $factures = DB::table("factures")->where("id_user", Auth::user()->id)->get();
+        // $factures = DB::table("factures")->where("id_user", Auth::user()->id)->get();
+        $clients = DB::table('clients')->where('id_user', Auth::user()->id)->get();
+        if ($request->ajax()) {
+            $query = $request->get('query');
+            // $query = 101;
 
-        return view("admin.facture", compact("factures"));
-       
+            if ($query != "") {
+                $val = DB::table('factures')
+                    ->where('id_client', $query)
+                    ->get();
+            }
+            $data = array(
+                'factures' => $val,
+            );
+            echo json_encode($data);
+        } else {
+            $factures = DB::table('factures')
+                ->where('id_user', auth()->user()->id)
+                ->get();
+                return view("admin.facture", compact("factures", "clients"));
+        }
     }
 
 
@@ -51,7 +68,7 @@ class FactureController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $this->validate($request, [
             'client' => 'required',
             'dateEmission' => 'required',
@@ -103,9 +120,9 @@ class FactureController extends Controller
      */
     public function update(Request $request, Facture $facture)
     {
-        
+
         $factur = Facture::find($facture->id_facture);
-        $factur->id_client = $request->client;        
+        $factur->id_client = $request->client;
         $factur->dateEmission = $request->dateEmission;
         $factur->dateFin = $request->dateFin;
         $factur->quantite = json_encode($request->quantite, JSON_FORCE_OBJECT);
@@ -124,5 +141,26 @@ class FactureController extends Controller
     {
         Facture::destroy($facture->id_facture);
         return redirect("/factures");
+    }
+
+    public function Recherche(Request $request)
+    {
+
+        $query = $request->get('query');
+
+        if ($query != "") {
+            $val = DB::table('factures')
+                ->where('id_client', $query)
+                ->get();
+        } else {
+            $val = DB::table('factures')
+                ->where('id_user', auth()->user()->id)
+                ->get();
+        }
+        $data = array(
+            'factures' => $val,
+        );
+        echo json_encode($data);
+        // return $val;
     }
 }

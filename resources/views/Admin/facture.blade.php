@@ -11,6 +11,16 @@
         </div>
     </div>
 </form>
+<div class="list-choice">
+    <div class="list-choice-title">Rechercher par client</div>
+    <div class="list-choice-objects">
+        @foreach($clients as $clien)
+        <label>
+            <input type="radio" name="client" id="search"  value="{{$clien->id_client}}" /> <span>{{$clien->prenom}}  {{$clien->nom}}</span>
+        </label>
+        @endforeach
+    </div>
+</div>
 @endsection
 
 @section('search')
@@ -43,11 +53,106 @@
     .link:hover {
         color: #6c757d;
     }
+
+    @import url(https://fonts.googleapis.com/css?family=Raleway);
+
+    .list-choice {
+        width: 300px;
+        margin: 1em auto;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .list-choice input[type="radio"] {
+        position: absolute;
+        display: none;
+    }
+
+    .list-choice-title {
+        width: 100%;
+        display: block;
+        background: #D8D8D8;
+        text-align: center;
+        padding: 0.55em 1em;
+        box-sizing: border-box;
+        color: #FFF;
+        text-shadow: 0 1px 0 #CACACA;
+        border-radius: 0.2em;
+    }
+
+    .list-choice:hover .list-choice-title {
+        border-radius: 0.2em 0.2em 0 0;
+    }
+
+    .list-choice-objects label:nth-last-of-type(1) span {
+        border-radius: 0 0 0.2em 0.2em;
+    }
+
+    .list-choice input[type="radio"]+span {
+        color: #FFF;
+        background: #D8D8D8;
+        padding: 0.55em 1em;
+        display: block;
+        text-align: center;
+        box-sizing: border-box;
+        cursor: pointer;
+        /* width: 100%; */
+    }
+
+    .list-choice-objects {
+        position: absolute;
+        top: 0;
+        padding-top: 2.8em;
+        box-sizing: border-box;
+        width: 100%;
+        overflow: hidden;
+        max-height: 0;
+        transition: all 250ms ease;
+    }
+
+    .list-choice:hover .list-choice-objects input[type="radio"]+span {
+        position: relative;
+        top: 0;
+        transition: all 250ms ease-in-out;
+        width: 300px;
+        z-index: 1;
+    }
+
+    .list-choice:hover input[type="radio"]+span:hover {
+        background: #BBB;
+    }
+
+    .list-choice:hover input[type="radio"]:checked+span:hover {
+        background: #4e73df;
+    }
+
+    .list-choice input[type="radio"]:checked+span {
+        background: #4e73df;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius: 0.2em;
+        width: 100%;
+    }
+
+    .list-choice:hover input[type="radio"]:checked+span {
+        border-radius: 0;
+    }
+
+    .list-choice:hover .list-choice-objects label:nth-last-of-type(1) input[type="radio"]:checked+span {
+        border-radius: 0 0 0.2em 0.2em;
+    }
+
+    .list-choice:hover .list-choice-objects {
+        max-height: 540px;
+    }
 </style>
 @endsection
 
 @section('content')
 <section class="row p-1">
+
+
     @foreach($factures as $facture)
     <div class="col-lg-4 col-sm-6 col-xl-3">
         <div class="card shadow mb-4">
@@ -59,7 +164,7 @@
                         F{{ $facture->nbr_facture }}
                         @else
                         F{{ $facture->nbr_facture }}</a> <span class="ml-3 text-success fs-6">Finalisée</span>
-                        @endif
+                    @endif
                     </a><br>
                     @php($client = DB::table('clients')->where('id_client',$facture->id_client)->first())
                     <a href="/clients/{{$client->id_client}}" class="link h6 mt-1 text-primary">
@@ -92,6 +197,7 @@
                 </div>
             </div>
         </div>
+        <div id="facture"></div>
     </div>
 
     <div class="modal fade" id="popupdel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -115,4 +221,34 @@
     </div>
     @endforeach
 </section>
+@endsection
+
+@section('chart')
+<script>
+    $(document).ready(function() {
+
+        fetch_facture_data();
+
+        function fetch_facture_data(query = '') {
+            // alert('ok')
+            $.ajax({
+                url: "/factures",
+                method: 'GET',
+                data: {
+                    query: query
+                },
+                dataType: 'json',
+                success: function(data) {
+                    $('#facture').html(data.factures);
+                    console.log(data.factures)
+                }
+            })
+        }
+
+        $(document).on('change', '#search', function() {
+            var query = $(this).val();
+            fetch_facture_data(query);
+        });
+    });
+</script>
 @endsection

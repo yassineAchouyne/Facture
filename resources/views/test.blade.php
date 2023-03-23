@@ -6,35 +6,40 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+
+
 </head>
 
 <body>
-    <div id="widget">
-        <input />
-        <input />
-    </div>
-    <button id="btnSave">save</button>
-    <div id="img-out" >
+<canvas id="pdfCanvas"></canvas>
 
-    </div>
+
+
     <script>
-        $(function() {
-            $("#btnSave").click(function() {
-                html2canvas($("#widget"), {
-                    onrendered: function(canvas) {
-                        theCanvas = canvas;
-                        document.body.appendChild(canvas);
+const url = '../pdf.pdf';
+PDFJS.getDocument(url).then(function(pdf) {
+  // Get the first page of the PDF
+  pdf.getPage(1).then(function(page) {
+    // Set the canvas dimensions to match the PDF page size
+    var canvas = document.getElementById('pdfCanvas');
+    canvas.width = page.view[2];
+    canvas.height = page.view[3];
+    
+    // Render the PDF page on the canvas as an image
+    var ctx = canvas.getContext('2d');
+    var renderContext = {
+      canvasContext: ctx,
+      viewport: page.getViewport(1)
+    };
+    page.render(renderContext);
+  });
+});
+var canvas = document.getElementById('pdfCanvas');
+var dataUrl = canvas.toDataURL('image/png');
 
-                        // Convert and download as image 
-                        Canvas2Image.saveAsPNG(canvas);
-                        $("#img-out").append(canvas);
-                        // Clean up 
-                        //document.body.removeChild(canvas);
-                    }
-                });
-            });
-        });
+
+
     </script>
 </body>
 
