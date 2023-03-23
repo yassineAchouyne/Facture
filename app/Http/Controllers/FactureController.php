@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\Facture;
 use App\Models\User;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -17,27 +18,9 @@ class FactureController extends Controller
      */
     public function index(Request $request)
     {
-        // $factures = DB::table("factures")->where("id_user", Auth::user()->id)->get();
+        $factures = DB::table("factures")->where("id_user", Auth::user()->id)->get();
         $clients = DB::table('clients')->where('id_user', Auth::user()->id)->get();
-        if ($request->ajax()) {
-            $query = $request->get('query');
-            // $query = 101;
-
-            if ($query != "") {
-                $val = DB::table('factures')
-                    ->where('id_client', $query)
-                    ->get();
-            }
-            $data = array(
-                'factures' => $val,
-            );
-            echo json_encode($data);
-        } else {
-            $factures = DB::table('factures')
-                ->where('id_user', auth()->user()->id)
-                ->get();
-                return view("admin.facture", compact("factures", "clients"));
-        }
+        return view("admin.facture", compact("factures", "clients"));
     }
 
 

@@ -12,11 +12,14 @@
     </div>
 </form>
 <div class="list-choice">
-    <div class="list-choice-title">Rechercher par client</div>
+    <div class="list-choice-title" >Rechercher par client</div>
     <div class="list-choice-objects">
+        <label onclick="reload()">
+            <input type="radio" name="client" /> <span>Tous les clients</span>
+        </label>
         @foreach($clients as $clien)
         <label>
-            <input type="radio" name="client" id="search"  value="{{$clien->id_client}}" /> <span>{{$clien->prenom}}  {{$clien->nom}}</span>
+            <input type="radio" name="client" class="search" onchange="fun(this)" value="{{$clien->id_client}}" /> <span>{{$clien->prenom}} {{$clien->nom}}</span>
         </label>
         @endforeach
     </div>
@@ -78,6 +81,7 @@
         color: #FFF;
         text-shadow: 0 1px 0 #CACACA;
         border-radius: 0.2em;
+        z-index: 2;
     }
 
     .list-choice:hover .list-choice-title {
@@ -108,6 +112,7 @@
         overflow: hidden;
         max-height: 0;
         transition: all 250ms ease;
+        z-index: 10;
     }
 
     .list-choice:hover .list-choice-objects input[type="radio"]+span {
@@ -115,7 +120,6 @@
         top: 0;
         transition: all 250ms ease-in-out;
         width: 300px;
-        z-index: 1;
     }
 
     .list-choice:hover input[type="radio"]+span:hover {
@@ -133,6 +137,7 @@
         left: 0;
         border-radius: 0.2em;
         width: 100%;
+
     }
 
     .list-choice:hover input[type="radio"]:checked+span {
@@ -151,10 +156,10 @@
 
 @section('content')
 <section class="row p-1">
-
-
     @foreach($factures as $facture)
-    <div class="col-lg-4 col-sm-6 col-xl-3">
+    @php($client = DB::table('clients')->where('id_client',$facture->id_client)->first())
+    <div class="col-lg-4 col-sm-6 col-xl-3 carde ">
+        <input type="hidden" value="{{$client->id_client}}">
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -166,7 +171,7 @@
                         F{{ $facture->nbr_facture }}</a> <span class="ml-3 text-success fs-6">Finalisée</span>
                     @endif
                     </a><br>
-                    @php($client = DB::table('clients')->where('id_client',$facture->id_client)->first())
+
                     <a href="/clients/{{$client->id_client}}" class="link h6 mt-1 text-primary">
                         {{ $client->prenom }} {{ $client->nom }}
                     </a>
@@ -197,7 +202,6 @@
                 </div>
             </div>
         </div>
-        <div id="facture"></div>
     </div>
 
     <div class="modal fade" id="popupdel" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -225,30 +229,26 @@
 
 @section('chart')
 <script>
-    $(document).ready(function() {
+    var card = document.getElementsByClassName('carde');
 
-        fetch_facture_data();
+    function reload() {
+        for (let i = 0; i < card.length; i++) {
+            card[i].style.display = "block"
+        }
+    }
 
-        function fetch_facture_data(query = '') {
-            // alert('ok')
-            $.ajax({
-                url: "/factures",
-                method: 'GET',
-                data: {
-                    query: query
-                },
-                dataType: 'json',
-                success: function(data) {
-                    $('#facture').html(data.factures);
-                    console.log(data.factures)
-                }
-            })
+    function fun(input) {
+        var id = input.value;
+
+        for (let i = 0; i < card.length; i++) {
+            var input = card[i].getElementsByTagName('input')[0].value;
+            if (id != input) {
+                card[i].style.display = "none"
+            } else {
+                card[i].style.display = "block"
+            }
         }
 
-        $(document).on('change', '#search', function() {
-            var query = $(this).val();
-            fetch_facture_data(query);
-        });
-    });
+    }
 </script>
 @endsection
