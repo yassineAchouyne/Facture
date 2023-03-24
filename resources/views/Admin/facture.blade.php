@@ -12,7 +12,7 @@
     </div>
 </form>
 <div class="list-choice">
-    <div class="list-choice-title" >Rechercher par client</div>
+    <div class="list-choice-title">Rechercher par client</div>
     <div class="list-choice-objects">
         <label onclick="reload()">
             <input type="radio" name="client" /> <span>Tous les clients</span>
@@ -51,129 +51,72 @@
 <style>
     .link {
         text-decoration: none;
+        border: 0;
+        background-color: transparent;
     }
 
     .link:hover {
         color: #6c757d;
     }
 
-    @import url(https://fonts.googleapis.com/css?family=Raleway);
 
-    .list-choice {
-        width: 300px;
-        margin: 1em auto;
-        position: relative;
-        cursor: pointer;
-    }
-
-    .list-choice input[type="radio"] {
-        position: absolute;
-        display: none;
-    }
-
-    .list-choice-title {
+    .modal-content {
         width: 100%;
-        display: block;
-        background: #D8D8D8;
-        text-align: center;
-        padding: 0.55em 1em;
-        box-sizing: border-box;
-        color: #FFF;
-        text-shadow: 0 1px 0 #CACACA;
-        border-radius: 0.2em;
-        z-index: 2;
+        height: 90vh;
     }
 
-    .list-choice:hover .list-choice-title {
-        border-radius: 0.2em 0.2em 0 0;
-    }
-
-    .list-choice-objects label:nth-last-of-type(1) span {
-        border-radius: 0 0 0.2em 0.2em;
-    }
-
-    .list-choice input[type="radio"]+span {
-        color: #FFF;
-        background: #D8D8D8;
-        padding: 0.55em 1em;
-        display: block;
-        text-align: center;
-        box-sizing: border-box;
-        cursor: pointer;
-        /* width: 100%; */
-    }
-
-    .list-choice-objects {
-        position: absolute;
-        top: 0;
-        padding-top: 2.8em;
-        box-sizing: border-box;
+    .pdf {
         width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+    .iframe {
+        height: 245px;
+        padding: 0 20px;
         overflow: hidden;
-        max-height: 0;
-        transition: all 250ms ease;
-        z-index: 10;
-    }
-
-    .list-choice:hover .list-choice-objects input[type="radio"]+span {
-        position: relative;
-        top: 0;
-        transition: all 250ms ease-in-out;
-        width: 300px;
-    }
-
-    .list-choice:hover input[type="radio"]+span:hover {
-        background: #BBB;
-    }
-
-    .list-choice:hover input[type="radio"]:checked+span:hover {
-        background: #4e73df;
-    }
-
-    .list-choice input[type="radio"]:checked+span {
-        background: #4e73df;
-        position: absolute;
-        top: 0;
-        left: 0;
-        border-radius: 0.2em;
         width: 100%;
-
-    }
-
-    .list-choice:hover input[type="radio"]:checked+span {
-        border-radius: 0;
-    }
-
-    .list-choice:hover .list-choice-objects label:nth-last-of-type(1) input[type="radio"]:checked+span {
-        border-radius: 0 0 0.2em 0.2em;
-    }
-
-    .list-choice:hover .list-choice-objects {
-        max-height: 540px;
+        border-radius: 10px;
+        border: none;
     }
 </style>
 @endsection
 
 @section('content')
 <section class="row p-1">
+    @if (session('status'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('status') }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    @endif
+
     @foreach($factures as $facture)
+
     @php($client = DB::table('clients')->where('id_client',$facture->id_client)->first())
+
     <div class="col-lg-4 col-sm-6 col-xl-3 carde ">
         <input type="hidden" value="{{$client->id_client}}">
         <div class="card shadow mb-4">
             <!-- Card Header - Dropdown -->
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <div>
-                    <a href="/factures/{{$facture->id_facture}}" class="link h6 m-0 font-weight-bold text-primary">
+            <div class="m-0 p-1 card-header  d-flex flex-row align-items-center justify-content-between">
+                <div class="m-0 p-0">
+                    <button data-toggle="modal" data-target="#view{{$facture->id_facture}}" class="link h6 m-0 font-weight-bold text-primary">
                         @if($facture->statut=="nonpayer")
                         F{{ $facture->nbr_facture }}
                         @else
-                        F{{ $facture->nbr_facture }}</a> <span class="ml-3 text-success fs-6">Finalisée</span>
-                    @endif
-                    </a><br>
+                        F{{ $facture->nbr_facture }} <span class="ml-3 text-success fs-6">Finalisée</span>
+                        @endif
+                    </button>
+                    <!-- <iframe data-toggle="modal" data-target="#view{{$facture->id_facture}}" id="my-iframe" src="{{ asset('storage/pdf/'.$facture->pdf)}}#toolbar=0&navpanes=0&view=fith" class="iframe" scrolling="no" frameborder="0" type='application/pdf' allowfullscreen>
+                    </iframe> -->
 
-                    <a href="/clients/{{$client->id_client}}" class="link h6 mt-1 text-primary">
-                        {{ $client->prenom }} {{ $client->nom }}
+                    <br>
+
+                    <a href="/clients/{{$client->id_client}}" class="link h6 mt-1 text-primary d-flex justify-content-center w-100">
+                        <span>{{ $client->prenom }} {{ $client->nom }}</span>
                     </a>
                 </div>
 
@@ -184,6 +127,7 @@
                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                         <a class="dropdown-item" href="/factures/{{ $facture->id_facture}}/edit">Modifier</a>
                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#popupdel">Supprimer</a>
+                        <a class="dropdown-item" href="/send/{{ $facture->id_facture}}">Send</a>
                         @if($facture->statut!="payer")
                         <a class="dropdown-item" href="/statut/{{$facture->id_facture}}">Facture est Payer</a>
                         @endif
@@ -223,12 +167,30 @@
             </div>
         </div>
     </div>
+
+    <div class="modal fade modelpdf" id="view{{$facture->id_facture}}" tabindex="-1" role="dialog" aria-labelledby="view{{$facture->id_facture}}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content m-0 p-0">
+                <div class="modal-body p-1">
+                    <iframe src="{{ asset('storage/pdf/'.$facture->pdf)}}#toolbar=0&navpanes=0&scrollbar=0" class="pdf" frameborder="0" type='application/pdf' allowfullscreen scrolling="0">
+                    </iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                    <a href="{{ asset('storage/pdf/'.$facture->pdf)}}" class="btn btn-primary" download>Download</a>
+                </div>
+            </div>
+        </div>
+    </div>
     @endforeach
 </section>
 @endsection
 
 @section('chart')
 <script>
+    //   document.querySelector('#my-iframe').scrolling = "no";
+
     var card = document.getElementsByClassName('carde');
 
     function reload() {

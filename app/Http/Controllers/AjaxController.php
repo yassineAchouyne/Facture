@@ -47,7 +47,7 @@ class AjaxController extends Controller
                 foreach ($val as $row) {
                     $output .= '
                     <tr>
-                    <td>F' . $row->id_facture . '</td>
+                    <td>F' . $row->nbr_facture . '</td>
                     <td>' . $row->modePayment . '</td>
                     <td>' . $this->totalHT($row). ' DH</td>
                     <td>' . $row->dateFin . '</td>

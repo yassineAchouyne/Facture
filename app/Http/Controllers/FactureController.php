@@ -76,7 +76,9 @@ class FactureController extends Controller
         $facture->nbr_facture = $user->nbr_facture;
 
         $facture->save();
-        return redirect("/factures");
+
+        $latestId = DB::table('factures')->latest()->value('id_facture');
+        return redirect("/pdf/$latestId");
     }
 
     /**
@@ -114,7 +116,7 @@ class FactureController extends Controller
         $factur->modePayment = $request->modePayment;
 
         $factur->update();
-        return redirect("/factures");
+        return redirect("/pdf/$facture->id_facture");
     }
 
     /**
@@ -124,26 +126,5 @@ class FactureController extends Controller
     {
         Facture::destroy($facture->id_facture);
         return redirect("/factures");
-    }
-
-    public function Recherche(Request $request)
-    {
-
-        $query = $request->get('query');
-
-        if ($query != "") {
-            $val = DB::table('factures')
-                ->where('id_client', $query)
-                ->get();
-        } else {
-            $val = DB::table('factures')
-                ->where('id_user', auth()->user()->id)
-                ->get();
-        }
-        $data = array(
-            'factures' => $val,
-        );
-        echo json_encode($data);
-        // return $val;
     }
 }

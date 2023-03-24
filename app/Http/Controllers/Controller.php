@@ -61,7 +61,7 @@ class Controller extends BaseController
         $facture = Facture::find($id);
         $facture->statut="payer";
         $facture->update();
-        return redirect("/factures/$id");
+        return redirect("/pdf/$id");
     }
 
     public function Envoyer_ClientAfacture($idc){
@@ -75,7 +75,8 @@ class Controller extends BaseController
                     ->where('id_user', auth()->user()->id)
                     ->where('nbr_facture','like','%'.$request->search.'%')
                     ->get();
-        return view("admin.facture", compact("factures"));
+        $clients = DB::table('clients')->where('id_user', Auth::user()->id)->get();
+        return view("admin.facture", compact("factures","clients"));
     }
 
 }

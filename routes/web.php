@@ -46,4 +46,3 @@ Route::get('/search_facture', [Controller::class, "search_facture"]);
 
 Route::get('/send/{id}', [EmailController::class, 'index']);
 
-Route::get('/test',[FactureController::class,"Recherche"]);

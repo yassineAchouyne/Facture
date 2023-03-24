@@ -17,7 +17,7 @@
         }
 
         @page {
-            size: 21cm 29.7cm;
+            size: 21cm 26cm;
             margin: 0;
         }
 

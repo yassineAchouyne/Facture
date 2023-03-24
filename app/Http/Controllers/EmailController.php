@@ -45,7 +45,7 @@ class EmailController extends Controller
         ];
         Mail::send('emails.testMail', $testMailData, function ($message) use ($pdf,$client,$facture) {
             $message->to($client->email)
-                ->subject('Factura')
+                ->subject('Factura.ma')
                 ->attachData($pdf->output(),$client->prenom.$client->nom.$facture->id_facture.'.pdf');
         });
 
