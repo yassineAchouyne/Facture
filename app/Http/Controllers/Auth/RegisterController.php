@@ -8,6 +8,10 @@ use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\VerifiesEmails;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -22,7 +26,7 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+    use RegistersUsers, VerifiesEmails;
 
     /**
      * Where to redirect users after registration.
@@ -70,8 +74,14 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-            'adresse'=>$data['adresse'],
-            'tel'=>$data['tel'],
+            'adresse' => $data['adresse'],
+            'tel' => $data['tel'],
         ]);
+    }
+    protected function registered(Request $request, $user)
+    {
+        $this->showRegistrationForm($user);
+
+        return view("auth/verify");
     }
 }

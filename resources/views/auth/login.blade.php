@@ -10,7 +10,12 @@
         <div class="col-lg-6">
             <div class="card">
                 <div class="card-header bg-primary text-white">{{ __('connexion') }}</div>
-
+                @if ($errors->has('vemail'))
+                <div class="alert alert-danger">{{ $errors->first('vemail') }}</div>
+                @endif
+                @if (session('success'))
+                <div class="alert alert-success">{{ session('success') }}</div>
+                @endif
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
@@ -42,7 +47,7 @@
                                 @enderror
                             </div>
                         </div>
-                        
+
                         <div class="row mb-3">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
@@ -83,7 +88,7 @@
                                 <i class="bi bi-linkedin"></i>
                             </a>
 
-                            <a href="{{ route('socialite.redirect', 'google') }}" title="Connexion/Inscription avec Google"  class="login100-social-item bg3">
+                            <a href="{{ route('socialite.redirect', 'google') }}" title="Connexion/Inscription avec Google" class="login100-social-item bg3">
                                 <i class="bi bi-google"></i>
                             </a>
                         </div>

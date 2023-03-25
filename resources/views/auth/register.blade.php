@@ -6,28 +6,26 @@
 
 @section('content')
 <style>
-    .fixed-top{
+    .fixed-top {
         position: absolute !important;
-        
-        /* height: 100px !important; */
     }
+
     @media (max-width:767px) {
-        .st{
-        margin-top: 200px !important;
+        .st {
+            margin-top: 200px !important;
+        }
     }
-    }
-    
 </style>
 <div class="container st">
     <div class="row justify-content-center">
         <div class="col-xxl-6">
             <div class="card">
                 <div class="card-header bg-primary text-white">{{ __('S\'inscrire') }}</div>
-
+              
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
-                        
+
                         <div class="row mb-3">
                             <label for="name" class="col-md-4 col-form-label text-md-end">{{ __('Name') }}</label>
 
@@ -35,9 +33,9 @@
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 
                                 @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
@@ -49,9 +47,9 @@
                                 <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
 
                                 @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>Email a déjà été pris.</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>Email a déjà été pris.</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
@@ -63,9 +61,9 @@
                                 <input id="adresse" type="text" class="form-control @error('adresse') is-invalid @enderror" name="adresse" value="{{ old('adresse') }}" required autocomplete="adresse" autofocus>
 
                                 @error('adresse')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
@@ -76,9 +74,9 @@
                                 <input id="tel" type="text" class="form-control @error('tel') is-invalid @enderror" name="tel" value="{{ old('tel') }}" required autocomplete="tel" autofocus>
 
                                 @error('tel')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
@@ -90,10 +88,10 @@
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
 
                                 @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>Le champ du mot de passe doit comporter au moins 8 caractères.</strong>
-                                        <br>OU <strong>Le champ de confirmation du mot de passe ne correspond pas.</strong>
-                                    </span>
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>Le champ du mot de passe doit comporter au moins 8 caractères.</strong>
+                                    <br>OU <strong>Le champ de confirmation du mot de passe ne correspond pas.</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>

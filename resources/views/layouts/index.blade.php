@@ -35,9 +35,28 @@
     <!-- <script src = "https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script> -->
 
     @yield('style')
+    <style>
+        #resend {
+            background-color: #f5f5f5;
+            height: 100vh;
+            width: 100%;
+            position: fixed;
+            z-index: 9999999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 </head>
 
-<body id="page-top" @yield('load')  >
+<body id="page-top" @yield('load')>
+    @if(auth()->user()->email_verified_at == null)
+    <div id="resend" class="fixed-top">
+        <div class=" alert alert-danger">
+            Veuillez vérifier votre adresse email
+        </div>
+    </div>
+    @endif
     <!-- Page Wrapper -->
     <div id="wrapper">
 

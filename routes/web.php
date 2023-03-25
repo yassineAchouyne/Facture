@@ -10,12 +10,22 @@ use App\Http\Controllers\PdfController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 
 
 Route::get('/', [Controller::class, "dashboard"]);
 
-Auth::routes();
+Auth::routes([
+    'reset' => true,
+    'verify' => true
+]);
+
+Route::get('/email/resend', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('resent', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.sendee');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -45,4 +55,3 @@ Route::get('/facture/{idc}', [Controller::class, "Envoyer_ClientAfacture"]);
 Route::get('/search_facture', [Controller::class, "search_facture"]);
 
 Route::get('/send/{id}', [EmailController::class, 'index']);
-
