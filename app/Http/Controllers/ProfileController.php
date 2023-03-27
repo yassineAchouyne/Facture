@@ -50,6 +50,9 @@ class ProfileController extends Controller
     public function edit(string $id)
     {
         $user = Auth::user();
+        if(auth()->user()->id != $id){
+            abort(403);
+        }
         $societe = Form_jiridique::find(Auth::user()->id);
         return view("admin.modifierUser", compact("user","societe"));
     }
@@ -59,6 +62,9 @@ class ProfileController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        if(auth()->user()->id != $id){
+            abort(403);
+        }
         
         $user = User::find($id);
         $autoEntrep = Form_jiridique::find($id);

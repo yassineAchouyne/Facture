@@ -23,7 +23,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                Nombre de Client</div>
+                                Nombre des Clients</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $nbrClient }}</div>
                         </div>
                         <div class="col-auto">
@@ -41,7 +41,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
-                                Nombre de Facture </div>
+                                Nombre des Factures </div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{$nbrFacture}}</div>
                         </div>
                         <div class="col-auto">
@@ -98,7 +98,7 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Les Facture <span id="nom_records"></span> (<span id="total_records"></span>) </h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Les Factures <span id="nom_records"></span> (<span id="total_records"></span>) </h6>
                     <div class="dropdown no-arrow">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
@@ -136,7 +136,7 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Les Facture</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Les Factures</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -166,7 +166,7 @@
 <footer class="sticky-footer bg-white">
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
-            <span>Copyright &copy; {{date('Y')}} - Factur.ma</span>
+            <span>Copyright &copy; {{date('Y')}} - Factura.ma</span>
         </div>
     </div>
 </footer>

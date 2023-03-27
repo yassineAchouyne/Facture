@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Client;
 use App\Models\Facture;
 use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -86,6 +87,9 @@ class FactureController extends Controller
      */
     public function show(Facture $facture)
     {
+        if(auth()->user()->id != $facture->id_user){
+            abort(403);
+        }
         $client = Client::find($facture->id_client);
         $function = $this;
         return view("admin.showFacture", compact("facture", "client", "function"));
@@ -96,6 +100,9 @@ class FactureController extends Controller
      */
     public function edit(Facture $facture)
     {
+        if(auth()->user()->id != $facture->id_user){
+            abort(403);
+        }
         $clients = DB::table("clients")->where("id_user", Auth::user()->id)->get();
         return view("admin.modifierFacture", compact("facture", "clients"));
     }
@@ -105,6 +112,9 @@ class FactureController extends Controller
      */
     public function update(Request $request, Facture $facture)
     {
+        if(auth()->user()->id != $facture->id_user){
+            abort(403);
+        }
 
         $factur = Facture::find($facture->id_facture);
         $factur->id_client = $request->client;
@@ -124,6 +134,9 @@ class FactureController extends Controller
      */
     public function destroy(Facture $facture)
     {
+        if(auth()->user()->id != $facture->id_user){
+            abort(403);
+        }
         Facture::destroy($facture->id_facture);
         return redirect("/factures");
     }

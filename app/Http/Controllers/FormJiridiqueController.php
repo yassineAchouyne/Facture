@@ -117,6 +117,10 @@ class FormJiridiqueController extends Controller
      */
     public function edit(Form_jiridique $form_jiridique)
     {
+        if (auth()->user()->id != $form_jiridique->id_user) {
+            abort(403);
+        }
+
         $societe = Form_jiridique::find(Auth::user()->id);
         return view("admin.ModifierForm", compact('societe'));
     }
@@ -126,7 +130,9 @@ class FormJiridiqueController extends Controller
      */
     public function update(Request $request, Form_jiridique $form_jiridique)
     {
-
+        if (auth()->user()->id != $form_jiridique->id_user) {
+            abort(403);
+        }
         $validated = $request->validate([
             'nom' => 'required',
             'adresse' => 'required',

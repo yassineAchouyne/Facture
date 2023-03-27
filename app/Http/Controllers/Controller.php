@@ -58,7 +58,13 @@ class Controller extends BaseController
     }
 
     public function ChangeStatut ($id){
+       
         $facture = Facture::find($id);
+
+        if(auth()->user()->id != $facture->id_user){
+            abort(403);
+        }
+        
         $facture->statut="payer";
         $facture->update();
         return redirect("/pdf/$id");

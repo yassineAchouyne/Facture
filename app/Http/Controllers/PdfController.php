@@ -32,8 +32,12 @@ class PdfController extends Controller
     public function generatePDF($id)
 
     {
-        $user = auth()->user();
         $facture = Facture::find($id);
+        if(auth()->user()->id != $facture->id_user){
+            abort(403);
+        }
+        
+        $user = auth()->user();
         $client = $facture->client;
         $total = $this->totalHT($facture);
         $societe = Form_jiridique::find($user->id);

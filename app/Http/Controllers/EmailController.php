@@ -14,12 +14,11 @@ include "php/function.php";
 
 class EmailController extends Controller
 {
-    public function index($id)
+    public function index(Request $request)
     {
-       
-
+        
         $user = auth()->user();
-        $facture = Facture::find($id);
+        $facture = Facture::find($request->id);
         $client = $facture->client;
         $total = $this->totalHT($facture);
         $societe = Form_jiridique::find($user->id);
@@ -41,7 +40,8 @@ class EmailController extends Controller
             $pdf = PDF::loadView('pdfAutoAntre', $data);
         }
         $testMailData = [
-            'title' => 'Facture numéro  ' . $facture->nbr_facture,
+            'client' => $client->nom ." ".$client->prenom,
+            'msg' => $request->message,
         ];
         Mail::send('emails.testMail', $testMailData, function ($message) use ($pdf,$client,$facture) {
             $message->to($client->email)
@@ -67,5 +67,6 @@ class EmailController extends Controller
             $msg->to("yachouyne@gmail.com")
                 ->subject(auth()->user()->name);
         });
+        return redirect()->back()->with('status',"Succès! Message a été envoyé avec succès.");
     }
 }

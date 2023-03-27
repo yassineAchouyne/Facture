@@ -75,6 +75,9 @@ class ClientController extends Controller
      */
     public function show(Client $client)
     {
+        if(auth()->user()->id != $client->id_user){
+            abort(403);
+        }
         return view("admin.showClient",compact("client")) ;
     }
 
@@ -83,7 +86,9 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-        
+        if(auth()->user()->id != $client->id_user){
+            abort(403);
+        }
         return view("admin.modifierClient",compact("client"));
     }
 
@@ -92,6 +97,9 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
+        if(auth()->user()->id != $client->id_user){
+            abort(403);
+        }
         $this->validate($request, [
             'email' => 'required',
             'nom' => 'required',
@@ -123,6 +131,10 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
+        if(auth()->user()->id != $client->id_user){
+            abort(403);
+        }
+        
         Client::destroy($client->id_client);
         return redirect("/clients");
     }

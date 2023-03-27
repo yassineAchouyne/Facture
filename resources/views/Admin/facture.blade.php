@@ -127,10 +127,37 @@
                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                         <a class="dropdown-item" href="/factures/{{ $facture->id_facture}}/edit">Modifier</a>
                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#popupdel">Supprimer</a>
-                        <a class="dropdown-item" href="/send/{{ $facture->id_facture}}">Send</a>
+                        <a class="dropdown-item" href="#" data-toggle="modal" data-keyboard="false" data-backdrop="static" data-target="#send">Send</a>
                         @if($facture->statut!="payer")
                         <a class="dropdown-item" href="/statut/{{$facture->id_facture}}">Facture est Payer</a>
                         @endif
+                    </div>
+                </div>
+
+                <!-- modal send facture -->
+
+                <div class="modal fade" id="send" tabindex="-1" role="dialog" aria-labelledby="send" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+
+                            <div class="modal-body">
+                                <form id="contactForm" action="/send" method="post">
+                                    @csrf
+                                    <!-- Message input-->
+                                    <div class="mb-3">
+                                        <input type="hidden" name="id" value="{{$facture->id_facture}}">
+                                        <label for="message">Message</label>
+                                        <textarea class="form-control" id="message" name="message" type="text" placeholder="Enter your message here..." style="height: 10rem" required data-sb-validations="required"></textarea>
+                                        <div class="invalid-feedback" data-sb-feedback="message:required">Un message est requis.</div>
+                                    </div>
+                                    <!-- Submit Button-->
+                                    <div class="d-flex modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button class="btn btn-primary" id="submitButton" type="submit">Envoyer</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

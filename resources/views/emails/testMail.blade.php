@@ -4,6 +4,7 @@
     <title>Factura.ma</title>
 </head>
 <body>
-    <h1>{{$title }}</h1>
+    <h4>Salut {{$client }}</h4>
+    <p>{{$msg}}</p>
 </body>
 </html>
