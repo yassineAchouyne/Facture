@@ -52,4 +52,20 @@ class EmailController extends Controller
         return redirect()->back()->with('status',"Succès! Email a été envoyé avec succès.");
 
     }
+
+    public function contact(Request $request){
+
+        $contact = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'tel' => $request->phone,
+            'msg' => $request->message,
+            "date" => date("Y-m-d h:i:sa"),
+        ];
+        // return $contact;
+        Mail::send('emails.contact', $contact, function ($msg){
+            $msg->to("yachouyne@gmail.com")
+                ->subject(auth()->user()->name);
+        });
+    }
 }

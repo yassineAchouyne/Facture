@@ -110,7 +110,7 @@
             <div class="container px-4 px-lg-5 text-center">
                 <h2 class="mb-4">Votre outil de facturation et devis 100% gratuit</h2>
                 <p>Gérez votre fichier client, établissez des devis et générez des factures gratuitement</p>
-                <a class="btn btn-light btn-xl" href="">Créer un compte</a>
+                <a class="btn btn-light btn-xl" href="/register">Créer un compte</a>
             </div>
         </section>
         <!-- Contact-->

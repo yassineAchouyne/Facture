@@ -60,9 +60,9 @@
     }
 
 
-    .modal-content {
+    .modal-pdf {
         width: 100%;
-        height: 90vh;
+        height: 80vh;
     }
 
     .pdf {
@@ -168,9 +168,9 @@
         </div>
     </div>
 
-    <div class="modal fade modelpdf" id="view{{$facture->id_facture}}" tabindex="-1" role="dialog" aria-labelledby="view{{$facture->id_facture}}" aria-hidden="true">
+    <div class="modal fade modelpdf " id="view{{$facture->id_facture}}" tabindex="-1" role="dialog" aria-labelledby="view{{$facture->id_facture}}" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content m-0 p-0">
+            <div class="modal-content modal-pdf m-0 p-0">
                 <div class="modal-body p-1">
                     <iframe src="{{ asset('storage/pdf/'.$facture->pdf)}}#toolbar=0&navpanes=0&scrollbar=0" class="pdf" frameborder="0" type='application/pdf' allowfullscreen scrolling="0">
                     </iframe>

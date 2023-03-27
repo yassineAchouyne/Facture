@@ -55,3 +55,7 @@ Route::get('/facture/{idc}', [Controller::class, "Envoyer_ClientAfacture"]);
 Route::get('/search_facture', [Controller::class, "search_facture"]);
 
 Route::get('/send/{id}', [EmailController::class, 'index']);
+
+
+Route::post('/contact', [EmailController::class, 'contact']);
+

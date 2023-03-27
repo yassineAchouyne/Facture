@@ -115,6 +115,13 @@
                 </div>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="modal" data-keyboard="false" data-backdrop="static" data-target="#contact" aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="bi bi-chat-dots-fill"></i>
+                    <span>Contact</span>
+                </a>
+            </li>
+
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -125,6 +132,52 @@
             </div>
 
         </ul>
+
+        <!-- contact -->
+        <div class="modal fade" id="contact" tabindex="-1" role="dialog" aria-labelledby="contact" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Contactez-nous</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="contactForm" action="/contact" method="post">
+                            @csrf
+                            <!-- Name input-->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="name" name="name" type="text" value="{{auth()->user()->name}}" placeholder="Enter your name..." data-sb-validations="required" />
+                                <label for="name">Nom Complet</label>
+                                <div class="invalid-feedback" data-sb-feedback="name:required">Un nom est requis.</div>
+                            </div>
+                            <!-- Email address input-->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" id="email" name="email" type="email" value="{{auth()->user()->email}}" placeholder="name@example.com" data-sb-validations="required,email" />
+                                <label for="email">Adresse Email</label>
+                                <div class="invalid-feedback" data-sb-feedback="email:required">Un email est requis.</div>
+                                <div class="invalid-feedback" data-sb-feedback="email:email">Email n’est pas valide.</div>
+                            </div>
+                            <!-- Phone number input-->
+                            <div class="form-floating mb-3">
+                                <input class="form-control" name="phone" id="phone" type="tel" value="{{auth()->user()->tel}}" placeholder="(123) 456-7890" data-sb-validations="required" />
+                                <label for="phone">Numéro de Téléphone</label>
+                                <div class="invalid-feedback" data-sb-feedback="phone:required">Un numéro de téléphone est requis.</div>
+                            </div>
+                            <!-- Message input-->
+                            <div class="form-floating mb-3">
+                                <textarea class="form-control" id="message"  name="message" type="text" placeholder="Enter your message here..." style="height: 10rem" required data-sb-validations="required"></textarea>
+                                <label for="message">Message</label>
+                                <div class="invalid-feedback" data-sb-feedback="message:required">Un message est requis.</div>
+                            </div>
+                            <!-- Submit Button-->
+                            <div class="d-grid"><button class="btn btn-primary btn-xl " id="submitButton" type="submit">Envoyer</button></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
@@ -193,6 +246,8 @@
 
                 </nav>
                 <!-- End of Topbar -->
+
+
 
                 <!-- Begin Page Content -->
                 @yield('content')

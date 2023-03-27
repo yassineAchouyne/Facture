@@ -55,8 +55,8 @@ class PdfController extends Controller
         } else   $pdf = Pdf::loadView('pdfAutoAntre', $data);
 
         $name = $client->prenom . $client->nom . $facture->id_facture . '.pdf';
-        $pdf->save($name);
-        Storage::disk('public')->put('pdf/'.$name, file_get_contents($name));
+        $pdf->save('storage/pdf/'.$name);
+        // Storage::disk('public')->put('pdf/'.$name, file_get_contents($name));
 
         $facture->pdf = $name; 
         $facture->save();
