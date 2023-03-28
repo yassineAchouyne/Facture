@@ -15,6 +15,7 @@ class ClientController extends Controller
      */
     public function index()
     {
+        if(!auth()->check())abort(403);
         $clients=DB::table("clients")->where("id_user",Auth::user()->id)->paginate(16) ;
         return view('admin.clients',compact('clients'));
     }
@@ -24,6 +25,7 @@ class ClientController extends Controller
      */
     public function create()
     {
+        if(!auth()->check())abort(403);
         return view("Admin.AjouterClient");
     }
 

@@ -17,9 +17,10 @@ class FactureController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request) 
     {
-        $factures = DB::table("factures")->where("id_user", Auth::user()->id)->get();
+        if(!auth()->check())abort(403);
+        $factures = DB::table("factures")->where("id_user", Auth::user()->id)->paginate(16);
         $clients = DB::table('clients')->where('id_user', Auth::user()->id)->get();
         return view("admin.facture", compact("factures", "clients"));
     }
@@ -42,6 +43,7 @@ class FactureController extends Controller
      */
     public function create()
     {
+        if(!auth()->check())abort(403);
         $clients = DB::table("clients")->where("id_user", Auth::user()->id)->get();
         $idc = 0;
         return view("admin.ajouterfacture", compact("clients", "idc"));

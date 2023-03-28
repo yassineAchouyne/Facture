@@ -17,6 +17,7 @@ class EmailController extends Controller
     public function index(Request $request)
     {
         
+        
         $user = auth()->user();
         $facture = Facture::find($request->id);
         $client = $facture->client;
