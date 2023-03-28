@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 28 mars 2023 à 11:29
+-- Généré le : mar. 28 mars 2023 à 13:48
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.1.13
 
@@ -80,7 +80,15 @@ CREATE TABLE IF NOT EXISTS `factures` (
   PRIMARY KEY (`id_facture`),
   KEY `factures_id_client_foreign` (`id_client`),
   KEY `factures_id_user_foreign` (`id_user`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Déchargement des données de la table `factures`
+--
+
+INSERT INTO `factures` (`id_facture`, `id_client`, `dateEmission`, `dateFin`, `quantite`, `prixHT`, `Description`, `modePayment`, `id_user`, `statut`, `nbr_facture`, `pdf`, `note`, `created_at`, `updated_at`) VALUES
+(6, 1, '2023-03-28', '2023-04-27', '{\"0\":\"0\"}', '{\"0\":\"0\"}', '{\"0\":null}', 'Espèces', 1, 'nonpayer', 6, 'YassineAchouyne6.pdf', '<h1 style=\"color: red;\" >test</h1>', '2023-03-28 12:35:29', '2023-03-28 12:43:31'),
+(7, 1, '2023-03-28', '2023-04-27', '{\"0\":\"0\"}', '{\"0\":\"0\"}', '{\"0\":null}', 'Espèces', 1, 'nonpayer', 7, 'YassineAchouyne7.pdf', '<h1>test</h1>', '2023-03-28 12:36:33', '2023-03-28 12:37:07');
 
 -- --------------------------------------------------------
 
@@ -246,7 +254,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `tel`, `email_verified_at`, `password`, `adresse`, `avatar`, `nbr_facture`, `societe`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Yassine Achouyne', 'yachouyne@gmail.com', '+212620858128', '2023-03-28 10:21:50', '$2y$10$VUg6YwhDMnsPBAzc/EH7.OD9ox3hyg.z96i9BalRXpp4miWG.rcfi', 'kawki', 'undraw_profile.svg', 1, 1, NULL, '2023-03-28 10:21:39', '2023-03-28 10:22:51');
+(1, 'Yassine Achouyne', 'yachouyne@gmail.com', '+212620858128', '2023-03-28 10:21:50', '$2y$10$VUg6YwhDMnsPBAzc/EH7.OD9ox3hyg.z96i9BalRXpp4miWG.rcfi', 'kawki', 'undraw_profile.svg', 8, 1, NULL, '2023-03-28 10:21:39', '2023-03-28 12:41:48');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

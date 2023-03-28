@@ -13,12 +13,12 @@
 </form>
 <div class="list-choice">
     <div class="list-choice-title">Rechercher par client</div>
-    <div class="list-choice-objects">
-        <label onclick="reload()">
-            <input type="radio" name="client" /> <span>Tous les clients</span>
+    <div class="list-choice-objects"> 
+        <label onclick="reload()" class=" w-100">
+            <input type="radio" name="client" /> <span >Tous les clients</span>
         </label>
         @foreach($clients as $clien)
-        <label>
+        <label class=" w-100">
             <input type="radio" name="client" class="search" onchange="fun(this)" value="{{$clien->id_client}}" /> <span>{{$clien->prenom}} {{$clien->nom}}</span>
         </label>
         @endforeach

@@ -52,6 +52,7 @@ class FactureController extends Controller
      */
     public function store(Request $request)
     {
+        
 
         $this->validate($request, [
             'client' => 'required',
@@ -75,7 +76,7 @@ class FactureController extends Controller
         $facture->modePayment = $request->modePayment;
         $facture->id_user = Auth::user()->id;
         $facture->nbr_facture = $user->nbr_facture;
-        $facture->note = $user->note;
+        $facture->note = $request->note;
 
         $facture->save();
 

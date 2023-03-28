@@ -427,6 +427,13 @@
                         </p>
                     </td>
                 </tr>
+                <tr>
+                    <td width="604" valign="top" style="width: 453.1pt; padding: 0cm 5.4pt 0cm 5.4pt">
+                        <p class="MsoNormal" style="margin-bottom: 0cm; line-height: normal;">
+                             {{$facture->note}}  
+                        </p>
+                    </td>
+                </tr>
             </table>
         </div>
 

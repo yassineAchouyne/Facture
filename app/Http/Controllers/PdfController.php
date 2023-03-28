@@ -33,6 +33,7 @@ class PdfController extends Controller
 
     {
         $facture = Facture::find($id);
+        // return $facture;
         if(auth()->user()->id != $facture->id_user){
             abort(403);
         }
@@ -52,7 +53,7 @@ class PdfController extends Controller
             'total' => $total,
 
         ];
-        // return $data['logo'];
+        
 
         if ($user->societe) {
             $pdf = Pdf::loadView('pdfSociete', $data);
@@ -60,7 +61,6 @@ class PdfController extends Controller
 
         $name = $client->prenom . $client->nom . $facture->id_facture . '.pdf';
         $pdf->save('storage/pdf/'.$name);
-        // Storage::disk('public')->put('pdf/'.$name, file_get_contents($name));
 
         $facture->pdf = $name; 
         $facture->save();

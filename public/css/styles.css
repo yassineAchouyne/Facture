@@ -11513,7 +11513,8 @@ header.masthead h1, header.masthead .h1 {
         display: block;
         background: #858796;
         text-align: center;
-        padding: 0.55em 1em;
+        padding:0.5em;
+        text-align: center;
         box-sizing: border-box;
         color: #FFF;
         text-shadow: 0 1px 0 #CACACA;
@@ -11532,12 +11533,12 @@ header.masthead h1, header.masthead .h1 {
     .list-choice input[type="radio"]+span {
         color: #FFF;
         background: #858796;
-        padding: 0.55em 1em;
+        padding:0.5em;
         display: block;
         text-align: center;
         box-sizing: border-box;
         cursor: pointer;
-        /* width: 100%; */
+        width: 100%;
     }
 
     .list-choice-objects {
@@ -11556,11 +11557,11 @@ header.masthead h1, header.masthead .h1 {
         position: relative;
         top: 0;
         transition: all 250ms ease-in-out;
-        width: 300px;
     }
 
     .list-choice:hover input[type="radio"]+span:hover {
         background: #BBB;
+        text-align: center;
     }
 
     .list-choice:hover input[type="radio"]:checked+span:hover {
