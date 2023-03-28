@@ -445,7 +445,7 @@
         <div id="ftn1" style="text-align:center" >
             <p>{{$societe->nomSociete}}</p>
             <p>{{$societe->adresse}}, {{$societe->codePostal}}, {{$societe->ville}}-{{$societe->pays}}</p>
-            <p>RC {{$societe->RC}} / IF {{$societe->IF}} / Patent {{$societe->patent}} / CNSS {{$societe->cnss}} / ICE {{$societe->ICF}} /</p>
+            <p>RC {{$societe->RC}} / IF {{$societe->IF}} / Patent {{$societe->patent}} / CNSS {{$societe->cnss}} / ICE {{$societe->ICE}} /</p>
             <p>FAX {{$societe->fax}}</p>
         </div>
     </div>

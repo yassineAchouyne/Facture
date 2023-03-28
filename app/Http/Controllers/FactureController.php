@@ -75,6 +75,7 @@ class FactureController extends Controller
         $facture->modePayment = $request->modePayment;
         $facture->id_user = Auth::user()->id;
         $facture->nbr_facture = $user->nbr_facture;
+        $facture->note = $user->note;
 
         $facture->save();
 
@@ -124,6 +125,7 @@ class FactureController extends Controller
         $factur->prixHT = json_encode($request->prixHT, JSON_FORCE_OBJECT);
         $factur->Description = json_encode($request->description, JSON_FORCE_OBJECT);
         $factur->modePayment = $request->modePayment;
+        $factur->note = $request->note;
 
         $factur->update();
         return redirect("/pdf/$facture->id_facture");

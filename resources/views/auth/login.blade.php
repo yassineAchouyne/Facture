@@ -73,25 +73,6 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="txt1 text-center p-t-54 p-b-20">
-                            <span>
-                                Ou inscrivez-vous en utilisant
-                            </span>
-                        </div>
-
-                        <div class="flex-c-m">
-                            <a href="{{ route('socialite.redirect', 'facebook') }}" class="login100-social-item bg1">
-                                <i class="bi bi-facebook"></i>
-                            </a>
-
-                            <a href="#" class="login100-social-item bg2">
-                                <i class="bi bi-linkedin"></i>
-                            </a>
-
-                            <a href="{{ route('socialite.redirect', 'google') }}" title="Connexion/Inscription avec Google" class="login100-social-item bg3">
-                                <i class="bi bi-google"></i>
-                            </a>
-                        </div>
                     </form>
                 </div>
             </div>

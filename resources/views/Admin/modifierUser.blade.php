@@ -160,7 +160,7 @@
                                 <p class="mb-0">ICE</p>
                             </div>
                             <div class="col-sm-9">
-                                <input class="text-muted mb-0 border-0  form-control " name="ICF" value="{{$societe->ICF}}" />
+                                <input class="text-muted mb-0 border-0  form-control " name="ICE" value="{{$societe->ICE}}" />
                             </div>
                         </div>
 

@@ -9,5 +9,5 @@ class Form_jiridique extends Model
 {
     use HasFactory;
     protected $primaryKey="id";
-    protected $fillable = ['nomSociete','adresse','codePostal','ville','RC','pays','website','IF','patent','cnss','ICF','tel','logo'];
+    protected $fillable = ['nomSociete','adresse','codePostal','ville','RC','pays','website','IF','patent','cnss','ICE','tel','logo'];
 }

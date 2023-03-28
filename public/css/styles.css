@@ -11511,7 +11511,7 @@ header.masthead h1, header.masthead .h1 {
     .list-choice-title {
         width: 100%;
         display: block;
-        background: #D8D8D8;
+        background: #858796;
         text-align: center;
         padding: 0.55em 1em;
         box-sizing: border-box;
@@ -11531,7 +11531,7 @@ header.masthead h1, header.masthead .h1 {
 
     .list-choice input[type="radio"]+span {
         color: #FFF;
-        background: #D8D8D8;
+        background: #858796;
         padding: 0.55em 1em;
         display: block;
         text-align: center;
@@ -11588,3 +11588,15 @@ header.masthead h1, header.masthead .h1 {
     .list-choice:hover .list-choice-objects {
         max-height: 540px;
     }
+
+
+
+
+
+
+
+
+
+
+
+    

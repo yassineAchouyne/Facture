@@ -19,14 +19,18 @@ return new class extends Migration
 
             $table->date("dateEmission");
             $table->date("dateFin");
-            $table->integer("quantite");
-            $table->integer("prixHT");
-            $table->integer("tva");
+            $table->string("quantite");
+            $table->string("prixHT");
+            $table->string("Description",1000)->nullable();
             $table->string('modePayment');
 
-            
             $table->unsignedBigInteger("id_user");
             $table->foreign("id_user")->references("id")->on("users");
+
+            $table->string('statut')->default('nonpayer');
+            $table->integer('nbr_facture')->default('0');
+            $table->string('pdf',1000)->nullable();
+            $table->string('note')->nullable();
 
             $table->timestamps();
         });

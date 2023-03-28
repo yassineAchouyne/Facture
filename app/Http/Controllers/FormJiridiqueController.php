@@ -40,7 +40,7 @@ class FormJiridiqueController extends Controller
                 'IF' => 'required',
                 'patent' => 'required',
                 'cnss' => 'required',
-                'ICF' => 'required',
+                'ICE' => 'required',
                 'fax' => 'required',
                 'logo' => 'required',
             ]);
@@ -53,7 +53,7 @@ class FormJiridiqueController extends Controller
                 'IF' => 'required',
                 'taxe' => 'required',
                 'cnie' => 'required',
-                'ICF' => 'required',
+                'ICE' => 'required',
             ]);
         }
 
@@ -75,7 +75,7 @@ class FormJiridiqueController extends Controller
             $form->IF = $request->IF;
             $form->patent = $request->patent;
             $form->cnss = $request->cnss;
-            $form->ICF = $request->ICF;
+            $form->ICE = $request->ICE;
 
             if ($request->hasFile("logo")) {
                 $img = $request->logo;
@@ -96,7 +96,7 @@ class FormJiridiqueController extends Controller
             $form->taxe = $request->taxe;
             $form->IF = $request->IF;
             $form->cnie = $request->cnie;
-            $form->ICF = $request->ICF;
+            $form->ICE = $request->ICE;
         }
         $form->id = Auth::user()->id;
 
@@ -117,11 +117,11 @@ class FormJiridiqueController extends Controller
      */
     public function edit(Form_jiridique $form_jiridique)
     {
-        if (auth()->user()->id != $form_jiridique->id_user) {
+        $societe = Form_jiridique::find(Auth::user()->id);
+        if (auth()->user()->id != $societe->id) {
             abort(403);
         }
 
-        $societe = Form_jiridique::find(Auth::user()->id);
         return view("admin.ModifierForm", compact('societe'));
     }
 
@@ -130,9 +130,6 @@ class FormJiridiqueController extends Controller
      */
     public function update(Request $request, Form_jiridique $form_jiridique)
     {
-        if (auth()->user()->id != $form_jiridique->id_user) {
-            abort(403);
-        }
         $validated = $request->validate([
             'nom' => 'required',
             'adresse' => 'required',
@@ -143,7 +140,7 @@ class FormJiridiqueController extends Controller
             'IF' => 'required',
             'patent' => 'required',
             'cnss' => 'required',
-            'ICF' => 'required',
+            'ICE' => 'required',
             'fax' => 'required',
         ]);
 
@@ -160,7 +157,7 @@ class FormJiridiqueController extends Controller
         $form->IF = $request->IF;
         $form->patent = $request->patent;
         $form->cnss = $request->cnss;
-        $form->ICF = $request->ICF;
+        $form->ICE = $request->ICE;
 
         if ($request->hasFile("logo")) {
             $img = $request->logo;

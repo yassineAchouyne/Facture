@@ -63,9 +63,9 @@ class EmailController extends Controller
             "date" => date("Y-m-d h:i:sa"),
         ];
         // return $contact;
-        Mail::send('emails.contact', $contact, function ($msg){
+        Mail::send('emails.contact', $contact, function ($msg) use($request) {
             $msg->to("yachouyne@gmail.com")
-                ->subject(auth()->user()->name);
+                ->subject("Lettre de".$request->name);
         });
         return redirect()->back()->with('status',"Succès! Message a été envoyé avec succès.");
     }

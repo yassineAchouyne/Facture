@@ -98,17 +98,17 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Les Factures <span id="nom_records"></span> (<span id="total_records"></span>) </h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Les factures <span id="nom_records"></span> (<span id="total_records"></span>) </h6>
                     <div class="dropdown no-arrow">
                         <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                             <label class="dropdown-item">
-                                <input style="display: none;" id="search" name="search" type="radio" value="payer" /> Payer
+                                <input style="display: none;" id="search" name="search" type="radio" value="payer" /> Payée
                             </label>
                             <label class="dropdown-item">
-                                <input style="display: none;" id="search" name="search" type="radio" value="nonpayer" /> Non Payer
+                                <input style="display: none;" id="search" name="search" type="radio" value="nonpayer" /> Non payée
                             </label>
                             <label class="dropdown-item">
                                 <input style="display: none;" id="search" name="search" type="radio" value="perimes" /> perimes
@@ -136,7 +136,7 @@
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Les Factures</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Les factures</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -145,10 +145,10 @@
                     </div>
                     <div class="mt-4 text-center small">
                         <span class="mr-2">
-                            <i class="fas fa-circle" style="color:#eb8258;"></i> Non Payer
+                            <i class="fas fa-circle" style="color:#eb8258;"></i> Non payée
                         </span>
                         <span class="mr-2">
-                            <i class="fas fa-circle" style="color:#3b9086;"></i> Payer
+                            <i class="fas fa-circle" style="color:#3b9086;"></i> Payée
                         </span>
                     </div>
                 </div>
@@ -221,7 +221,7 @@
     var myPieChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
-            labels: ["Payer", "Non Payer"],
+            labels: ["Payée", "Non payée"],
             datasets: [{
                 data: [
                     Fpayer, Fnonpayer

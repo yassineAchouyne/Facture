@@ -39,7 +39,7 @@ onload="calcPrix()"
         <label class="ml-3" for="client">Client</label>
         <select style="height: 55px;" class="form-control" name="client">
             @foreach($clients as $client)
-            <option value="{{$client->id_client}}">{{$client->prenom}} {{$client->nom}}</option>
+            <option value="{{$client->id_client}}" @if($client->id_client == $facture->id_client ) selected @endif >{{$client->prenom}} {{$client->nom}}</option>
             @endforeach
         </select>
     </div>
@@ -116,12 +116,18 @@ onload="calcPrix()"
     <!--Mode payment select-->
     <div class="mb-3">
         <label class="ml-3" for="modePayment">modes de paiement</label>
-        <select style="height: 55px;" class="form-control" data-default="{{$facture->modePayment}}" name="modePayment">
-            <option value="Espèces">Espèces</option>
-            <option value="Chèque">Chèque</option>
-            <option value="Carte bancaire">Carte bancaire</option>
-            <option value="PayPal">PayPal</option>
+        <select style="height: 55px;" class="form-control"  name="modePayment">
+            <option value="Espèces" @if($facture->modePayment == "Espèces") selected @endif>Espèces</option>
+            <option value="Chèque" @if($facture->modePayment == "Chèque") selected @endif>Chèque</option>
+            <option value="Carte bancaire" @if($facture->modePayment == "Carte bancaire") selected @endif>Carte bancaire</option>
+            <option value="PayPal" @if($facture->modePayment == "PayPal") selected @endif>PayPal</option>
         </select>
+    </div>
+
+     <!-- note input-->
+     <div class="form-floating mb-3">
+        <textarea class="form-control" id="description" name="note" type="text" placeholder="Note" style="height: 3rem">{{$facture->note}}</textarea>
+        <label for="message">Note</label>
     </div>
 
     <!-- Submit Button-->

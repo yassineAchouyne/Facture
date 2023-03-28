@@ -102,10 +102,10 @@
             <input class="form-control @error('cnss') is-invalid @enderror" id="cnss" value="{{old('cnss')}}" name="cnss" type="text" placeholder="RC" />
             <label for="ville" class="@error('cnss') text-danger  @enderror">CNSS</label>
         </div>
-        <!--ICF input-->
+        <!--ICE input-->
         <div class="form-floating mb-3">
-            <input class="form-control @error('ICF') is-invalid @enderror" id="ICF" value="{{old('ICF')}}" name="ICF" type="text" placeholder="RC" />
-            <label for="ville" class="@error('ICF') text-danger  @enderror">ICF</label>
+            <input class="form-control @error('ICE') is-invalid @enderror" id="ICE" value="{{old('ICE')}}" name="ICE" type="text" placeholder="RC" />
+            <label for="ville" class="@error('ICE') text-danger  @enderror">ICE</label>
         </div>
         <!-- avatar input -->
         <div class="mb-3">
@@ -160,10 +160,10 @@
             <input class="form-control @error('taxe') is-invalid @enderror" id="taxe" value="{{old('taxe')}}" name="taxe" type="text" placeholder="taxe" />
             <label for="ville" class="@error('taxe') text-danger  @enderror">Taxe professionnelle</label>
         </div>
-        <!--ICF input-->
+        <!--ICE input-->
         <div class="form-floating mb-3">
-            <input class="form-control @error('ICF') is-invalid @enderror" id="ICF" value="{{old('ICF')}}" name="ICF" type="text" placeholder="RC" />
-            <label for="ville" class="@error('ICF') text-danger  @enderror">ICE</label>
+            <input class="form-control @error('ICE') is-invalid @enderror" id="ICE" value="{{old('ICE')}}" name="ICE" type="text" placeholder="RC" />
+            <label for="ville" class="@error('ICE') text-danger  @enderror">ICE</label>
         </div>
 
         <div class="d-grid"><button class="btn btn-primary btn-xl" id="submitButton" type="submit">Enregistrer</button></div>

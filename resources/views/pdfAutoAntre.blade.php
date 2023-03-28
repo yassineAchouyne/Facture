@@ -446,7 +446,7 @@
         <div id="ftn1"  >
             <pre>  Auto Entrepreneur :{{$user->name}}      CNIE : {{$societe->cnie}}</pre>
             <pre>  Adresse :{{$user->adresse}}, {{$societe->codePostal}}, {{$societe->ville}}-{{$societe->pays}} </pre>
-            <pre>  N°d’inscription au registre national de l’auto-entrepreneur: {{$societe->ICF}}</pre>
+            <pre>  N°d’inscription au registre national de l’auto-entrepreneur: {{$societe->ICE}}</pre>
             <pre>  IF :{{$societe->IF}}              Taxe professionnelle N°: {{$societe->taxe}}</pre>
             <pre>  TEL :{{$user->tel}}      MAIL: {{$user->email}}</pre>
         </div>

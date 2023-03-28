@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('codePostal');
             $table->string('ville');
             $table->string('pays');
-            $table->string('website');
+            $table->string('website')->nullable();
             $table->string('tel');
             
             $table->unsignedBigInteger("id_user");

@@ -87,7 +87,7 @@ class ProfileController extends Controller
         $autoEntrep->ville = $request->ville;
         $autoEntrep->pays = $request->pays;
         $autoEntrep->cnie = $request->cnie;
-        $autoEntrep->ICF = $request->ICF;
+        $autoEntrep->ICE = $request->ICE;
         $autoEntrep->IF = $request->IF;
         $autoEntrep->taxe = $request->taxe;
         $autoEntrep->update();

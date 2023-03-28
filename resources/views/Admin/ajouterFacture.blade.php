@@ -19,7 +19,7 @@
         border-width: 0;
         color: gray;
         background-color: gray;
-        
+
     }
 </style>
 
@@ -104,6 +104,12 @@
             <option value="PayPal">PayPal</option>
         </select>
     </div>
+
+    <!-- note input-->
+    <div class="form-floating mb-3">
+        <textarea class="form-control" id="description" name="note" type="text" placeholder="Note" style="height: 3rem"></textarea>
+        <label for="message">Note</label>
+    </div>
     <!-- Submit Button-->
     <div class="d-grid"><button class="btn btn-primary btn-xl" id="submitButton" type="submit">Créer la facture</button></div>
 </form>
@@ -116,11 +122,11 @@
     function calcPrix() {
         var dynamicadd = document.getElementById('dynamicadd');
         var table = dynamicadd.getElementsByClassName('row')
-        for(i=0;i<table.length;i++){
+        for (i = 0; i < table.length; i++) {
             var quantite = table[i].children[0].children[1].value;
             var prixHT = table[i].children[1].children[1].value;
             var totalHT = table[i].children[2].children[1];
-            totalHT.value = quantite*prixHT;
+            totalHT.value = quantite * prixHT;
         }
     }
 </script>

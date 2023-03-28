@@ -19,14 +19,14 @@ class AjaxController extends Controller
                         ->where('statut', 'payer')
                         ->orderBy('id_facture', 'desc')
                         ->get();
-                $nom = $query;
+                $nom = "payée";
             }elseif ($query == "nonpayer") {
                 $val = DB::table('factures')
                     ->where('id_user', auth()->user()->id)
                     ->where('statut', 'nonpayer')
                     ->orderBy('id_facture', 'desc')
                     ->get();
-                $nom = $query;
+                $nom = "non payée";
             } elseif ($query == "perimes") {
                 $val = DB::table('factures')
                     ->where('id_user', auth()->user()->id)
