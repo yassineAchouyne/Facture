@@ -27,6 +27,11 @@ Route::get('/email/resend', function (Request $request) {
     return back()->with('resent', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.sendee');
 
+// Route::middleware("auth",function(){
+
+Route::middleware(['auth'])->group(function () {
+
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get("login-register", "App\Http\Controllers\SocialiteController@loginRegister");
@@ -58,3 +63,4 @@ Route::post('/send', [EmailController::class, 'index']);
 
 Route::post('/contact', [EmailController::class, 'contact']);
 
+});
